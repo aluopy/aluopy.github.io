@@ -13,7 +13,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 locale                   : "en-US"
 title                    : "One Person's Revelry"
 title_separator          : "-"
-subtitle                 :
+subtitle                 : ""
 name                     : &name "aluopy" # &name is a YAML anchor which can be *referenced later
 description              : &description "KILL TIME OR KISS TIME"
 url                      : https://aluopy.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
