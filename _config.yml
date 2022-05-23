@@ -200,6 +200,9 @@ collections:
   portfolio:
     output: true
     permalink: /:collection/:path/
+  kubernetes:
+    output: true
+    permalink: /:collection/:path/
 
 
 # Defaults
@@ -260,7 +263,14 @@ defaults:
       layout: single
       author_profile: false
       share: true
-
+  # _kubernetes
+  - scope:
+      path: ""
+      type: kubernetes
+    values:
+      layout: single
+      author_profile: true
+      share: true
 
 # Sass/SCSS
 sass:
