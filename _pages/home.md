@@ -7,7 +7,7 @@ header:
   overlay_image: /assets/images/unsplash-image-5.jpg
   actions: ""
 excerpt: >
-  Your dream is not what you find in your sleep but what makes you not sleep.<br />
+  I'm the type of person, if you ask me a question, and I don't know the answer, I'm gonna to tell you that I don't know. But I bet you what: I know how to find the answer, and I'll find the answer.<br />
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
