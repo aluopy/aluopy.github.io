@@ -4,11 +4,11 @@ permalink: /
 hidden: true
 header:
   overlay_color: "#5e616c"
-  overlay_image: /assets/images/unsplash-image-5.jpg
+  overlay_image: /assets/images/pexels-abhishek-gaurav-919943.jpg
   actions: ""
 excerpt: >
   Have enthusiasm, Put down uneasiness, Love life, Not reluctant, Have expectations.<br />
-  <small><a>aluopy</a></small>
+  <small><a>:octocat: aluopy</a></small>
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
