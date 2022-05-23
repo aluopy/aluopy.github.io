@@ -4,10 +4,10 @@ permalink: /
 hidden: true
 header:
   overlay_color: "#5e616c"
-  overlay_image: /assets/images/mm-home-page-feature.jpg
+  overlay_image: /assets/images/unsplash-image-5.jpg
   actions: ""
 excerpt: >
-  Your dream is not what you find in your sleep but what makes you not sleep.<br /><br /><br /><br /><br />
+  Your dream is not what you find in your sleep but what makes you not sleep.<br />
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
