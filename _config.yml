@@ -19,9 +19,9 @@ description              : &description "KILL TIME OR KISS TIME"
 url                      : https://aluopy.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/" # the subpath of your site, e.g. "/blog"
 repository               : "aluopy/aluopy.github.io"
-teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
+teaser                   : /assets/images/unsplash-image-1.jpg # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+logo                     : # /assets/images/aluopy.png # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
+masthead_title           : "masthead_title" # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -56,9 +56,9 @@ search                   : true # true, false (default)
 search_full_content      : true # true, false (default)
 search_provider          : algolia # lunr (default), algolia
 algolia:
-  application_id         : QB6HVGBSBA # YOUR_APPLICATION_ID
-  index_name             : minimal_mistakes # YOUR_INDEX_NAME
-  search_only_api_key    : 9d5014e5bbc77372547bce778dfa5663 # YOUR_SEARCH_ONLY_API_KEY
+  application_id         : 6UYA4G2234 # YOUR_APPLICATION_ID
+  index_name             : aluopy_github_io # YOUR_INDEX_NAME
+  search_only_api_key    : 6cea323db47d3006c304ea0f4facd8ac # YOUR_SEARCH_ONLY_API_KEY
   powered_by             : true # true (default), false
   files_to_exclude:
     - _posts/2017-11-28-post-exclude-search.md
