@@ -7,7 +7,7 @@ header:
   overlay_image: /assets/images/mm-home-page-feature.jpg
   actions: ""
 excerpt: >
-  Your dream is not what you find in your sleep but what makes you not sleep.<br />
+  Your dream is not what you find in your sleep but what makes you not sleep.<br /><br /><br /><br /><br /><br />
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
