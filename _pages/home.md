@@ -8,6 +8,7 @@ header:
   actions: ""
 excerpt: >
   Have enthusiasm, Put down uneasiness, Love life, Not reluctant, Have expectations.<br />
+  <small><a>aluopy</a></small>
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
