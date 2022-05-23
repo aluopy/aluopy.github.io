@@ -2,6 +2,11 @@
 title: "NGINX Ingress Controller"
 excerpt: "ingress-nginx 是 Kubernetes 的入口控制器，使用 NGINX 作为反向代理和负载均衡器。"
 toc: true
+categories:
+  - kubernetes
+  - ingress
+  - network
+  - daemonset
 tags: kubernetes
 ---
 

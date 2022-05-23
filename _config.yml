@@ -21,7 +21,7 @@ baseurl                  : "/" # the subpath of your site, e.g. "/blog"
 repository               : "aluopy/aluopy.github.io"
 teaser                   : /assets/images/unsplash-image-1.jpg # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # /assets/images/aluopy.png # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-masthead_title           : "masthead_title" # overrides the website title displayed in the masthead, use " " for no title
+masthead_title           : # "One Person’s Revelry" # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
 comments:
@@ -269,8 +269,11 @@ defaults:
       type: kubernetes
     values:
       layout: single
+      show_date: false
+      read_time: true
       author_profile: true
       share: true
+      comment: false
 
 # Sass/SCSS
 sass:

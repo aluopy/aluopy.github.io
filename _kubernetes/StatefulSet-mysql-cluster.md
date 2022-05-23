@@ -2,6 +2,10 @@
 title: "使用 StatefulSet 部署 MySQL 集群"
 excerpt: "本文展示如何使用 StatefulSet 控制器部署 MySQL 集群。此例是多副本的 MySQL 数据库。 示例应用的拓扑结构有一个主服务器和多个副本，使用异步的基于行（Row-Based） 的数据复制。"
 toc: true
+categories:
+  - kubernetes
+  - statefulset
+  - mysql
 tags: kubernetes
 ---
 
