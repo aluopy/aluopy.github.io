@@ -1,4 +1,5 @@
 ---
+title: "One Person's Revelry"
 layout: splash
 permalink: /
 hidden: true
