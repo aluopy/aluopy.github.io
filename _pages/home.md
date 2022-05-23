@@ -7,7 +7,7 @@ header:
   overlay_image: /assets/images/unsplash-image-5.jpg
   actions: ""
 excerpt: >
-  Having enthusiasm put aside unease and love life without reluctance expectation.<br />
+  Have enthusiasm, Put down uneasiness, Love life, Not reluctant, Have expectations.<br />
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
