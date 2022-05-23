@@ -6,7 +6,8 @@ header:
   overlay_color: "#5e616c"
   overlay_image: /assets/images/unsplash-image-5.jpg
   actions: ""
-excerpt: ""
+excerpt: >
+  Having enthusiasm put aside unease and love life without reluctance expectation.<br />
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
