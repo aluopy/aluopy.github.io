@@ -6,8 +6,7 @@ header:
   overlay_color: "#5e616c"
   overlay_image: /assets/images/unsplash-image-5.jpg
   actions: ""
-excerpt: >
-  I'm the type of person, if you ask me a question, and I don't know the answer, I'm gonna to tell you that I don't know. But I bet you what: I know how to find the answer, and I'll find the answer.<br />
+excerpt: ""
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
