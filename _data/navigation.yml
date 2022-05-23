@@ -30,6 +30,8 @@ main:
     url: /collection-archive/
   - title: "Getting Started"
     url: /docs/quick-start-guide/
+  - title: "Categories"
+    url: /categories/
   - title: "About"
     url: /about/
 
