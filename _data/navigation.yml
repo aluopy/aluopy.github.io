@@ -22,6 +22,8 @@ foo:
 main:
   - title: "Collections"
     url: /collection-archive/
+  - title: "Tags"
+    url: /tags/
   - title: "About"
     url: /about/
   - title: "Sample Posts"
