@@ -231,7 +231,7 @@ defaults:
   # _kubernetes
   - scope:
       path: ""
-      type: posts
+      type: kubernetes
     values:
       layout: single
       show_date: false
@@ -261,6 +261,7 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+  - jekyll-archives
 
 # mimic GitHub Pages with --safe
 whitelist:
