@@ -231,7 +231,7 @@ defaults:
   # _kubernetes
   - scope:
       path: ""
-      type: kubernetes
+      type: posts
     values:
       layout: single
       show_date: false
