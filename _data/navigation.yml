@@ -20,20 +20,18 @@ foo:
 
 # main links
 main:
-  - title: "Home"
-    url: /
   - title: "Docs"
     url: /year-archive/
   - title: "Tags"
     url: /tags/
-  - title: "Collections"
-    url: /collection-archive/
-  - title: "Getting Started"
-    url: /docs/quick-start-guide/
   - title: "Categories"
     url: /categories/
   - title: "About"
     url: /about/
+  - title: "Collections"
+    url: /collection-archive/
+  - title: "mademistakes"
+    url: /docs/quick-start-guide/
 
 
 # documentation links
