@@ -20,16 +20,16 @@ foo:
 
 # main links
 main:
-  - title: "Docs"
+  - title: "Posts"
     url: /year-archive/
-  - title: "Tags"
-    url: /tags/
   - title: "Categories"
     url: /categories/
-  - title: "About"
-    url: /about/
+  - title: "Tags"
+    url: /tags/
   - title: "Collections"
     url: /collection-archive/
+  - title: "About"
+    url: /about/
   - title: "mademistakes"
     url: /docs/quick-start-guide/
 
