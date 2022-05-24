@@ -188,9 +188,6 @@ kramdown:
 
 # Collections
 collections:
-  docs:
-    output: true
-    permalink: /:collection/:path/
   kubernetes:
     output: true
     permalink: /:collection/:path/
