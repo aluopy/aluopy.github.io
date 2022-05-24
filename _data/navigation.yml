@@ -30,8 +30,6 @@ main:
     url: /collection-archive/
   - title: "About"
     url: /about/
-  - title: "mademistakes"
-    url: /docs/quick-start-guide/
 
 
 # documentation links
