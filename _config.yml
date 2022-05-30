@@ -191,6 +191,9 @@ collections:
   kubernetes:
     output: true
     permalink: /:collection/:path/
+  prometheus:
+    output: true
+    permalink: /:collection/:path/
   elastic-stack:
     output: true
     permalink: /:collection/:path/
@@ -232,6 +235,18 @@ defaults:
   - scope:
       path: ""
       type: kubernetes
+    values:
+      layout: single
+      show_date: false
+      read_time: true
+      author_profile: true
+      share: true
+      comment: false
+      related: true
+  # _prometheus
+  - scope:
+      path: ""
+      type: prometheus
     values:
       layout: single
       show_date: false
