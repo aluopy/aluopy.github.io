@@ -13,23 +13,23 @@ excerpt: >
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
-    title: "Super customizable"
+    title: "Kubernetes"
     excerpt: "Everything from the menus, sidebars, comments, and more can be configured or set with YAML Front Matter."
-    url: "/docs/configuration/"
+    url: "/kubernetes/"
     btn_class: "btn--primary"
     btn_label: "Read More"
   - image_path: /assets/images/mm-responsive-feature.png
     alt: "fully responsive"
-    title: "Responsive layouts"
+    title: "Prometheus"
     excerpt: "Built with HTML5 + CSS3. All layouts are fully responsive with helpers to augment your content."
-    url: "/docs/layouts/"
+    url: "/prometheus/"
     btn_class: "btn--primary"
     btn_label: "Read More"
   - image_path: /assets/images/mm-free-feature.png
     alt: "100% free"
-    title: "100% free"
+    title: "Elastic-Stack"
     excerpt: "Free to use however you want under the MIT License. Clone it, fork it, customize it... whatever!"
-    url: "/docs/license/"
+    url: "/elastic-stack/"
     btn_class: "btn--primary"
     btn_label: "Read More"      
 ---
