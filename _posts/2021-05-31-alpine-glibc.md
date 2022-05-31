@@ -1,6 +1,6 @@
 ---
 title: "alpine-pkg-glibc"
-excerpt: "A glibc compatibility layer package for Alpine Linux。"
+excerpt: "A glibc compatibility layer package for Alpine Linux."
 toc: true
 categories: Docker
 tags:
@@ -8,6 +8,8 @@ tags:
   - Dockerfile
   - alpine
 ---
+
+A glibc compatibility layer package for Alpine Linux.
 
 - [Alpine - Official Image \| Docker Hub](https://hub.docker.com/_/alpine)
 - [sgerrand/alpine-pkg-glibc: A glibc compatibility layer package for Alpine Linux (github.com)](https://github.com/sgerrand/alpine-pkg-glibc)
