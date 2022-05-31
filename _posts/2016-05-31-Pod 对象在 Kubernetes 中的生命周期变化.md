@@ -7,10 +7,6 @@ tags:
   - pod
 ---
 
-
-
-# Pod 对象在 Kubernetes 中的生命周期变化
-
 Pod 生命周期的变化，主要体现在 Pod API 对象的 `Status` 部分，这是它除了 `Metadata` 和 `Spec` 之外的第三个重要字段。其中，`pod.status.phase` ，就是 Pod 的当前状态，它有如下几种可能的情况：
 
 1. **Pending**。这个状态意味着，Pod 的 YAML 文件已经提交给了 Kubernetes，API 对象已经被创建并保存在 Etcd 当中。但是，这个 Pod 里有些容器因为某种原因而不能被顺利创建。比如，调度不成功。
