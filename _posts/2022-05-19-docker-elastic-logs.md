@@ -2,7 +2,7 @@
 title: "docker-elastic-logs"
 excerpt:: The Elastic stack powered by Docker and Compose, preconfigured with Security, Up with a Single Command. Suitable for Demoing, MVPs and small production deployments.
 toc: true
-categories: elastic-stack
+categories: Elastic-Stack
 tags:
   - docker
   - elastic-stack
