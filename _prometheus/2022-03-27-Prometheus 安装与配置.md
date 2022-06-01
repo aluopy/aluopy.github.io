@@ -69,8 +69,8 @@ $ curl -m 1 -s -o /dev/null -w '%{http_code}\n' http://localhost:9090/graph
 
 ## Alertmanager
 
-- [Alerting overview \| Prometheus](https://prometheus.io/docs/alerting/latest/overview/)
-- [Download \| Prometheus](https://prometheus.io/download/)
+- [Alerting overview | Prometheus](https://prometheus.io/docs/alerting/latest/overview/)
+- [Download | Prometheus](https://prometheus.io/download/)
 
 ### 安装
 
@@ -122,9 +122,9 @@ $ curl -m 1 -s -o /dev/null -w '%{http_code}\n' http://localhost:9093
 
 ## Grafana
 
-- [Grafana: The open observability platform \| Grafana Labs](https://grafana.com/)
-- [Grafana documentation \| Grafana Labs](https://grafana.com/docs/grafana/latest/)
-- [Download Grafana \| Grafana Labs](https://grafana.com/grafana/download)
+- [Grafana: The open observability platform | Grafana Labs](https://grafana.com/)
+- [Grafana documentation | Grafana Labs](https://grafana.com/docs/grafana/latest/)
+- [Download Grafana | Grafana Labs](https://grafana.com/grafana/download)
 
 ### 安装
 
@@ -444,7 +444,7 @@ route:
 
 ### 参考资料
 
-- [Sending alert notifications to multiple destinations – Robust Perception \| Prometheus Monitoring Experts](https://www.robustperception.io/sending-alert-notifications-to-multiple-destinations)
+- [Sending alert notifications to multiple destinations – Robust Perception | Prometheus Monitoring Experts](https://www.robustperception.io/sending-alert-notifications-to-multiple-destinations)
 
 # Rules
 

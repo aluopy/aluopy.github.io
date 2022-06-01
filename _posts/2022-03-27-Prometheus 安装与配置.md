@@ -16,8 +16,8 @@ tags:
 ## Prometheus
 
 - [Prometheus - Monitoring system & time series database](https://prometheus.io/)
-- [Docs | Prometheus](https://prometheus.io/docs/introduction/overview/)
-- [Download | Prometheus](https://prometheus.io/download/)
+- [Docs \| Prometheus](https://prometheus.io/docs/introduction/overview/)
+- [Download \| Prometheus](https://prometheus.io/download/)
 
 ### 安装
 

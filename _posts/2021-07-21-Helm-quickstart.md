@@ -7,7 +7,7 @@ tags:
   - helm
 ---
 
-[Helm](https://helm.sh/zh/docs/) 致力于成为k8s集群的应用包管理工具，希望像linux 系统的`RPM` `DPKG`那样成功；确实在k8s上部署复杂一点的应用很麻烦，需要管理很多yaml文件（configmap,controller,service,rbac,pv,pvc等等），而helm能够整齐管理这些文档：版本控制，参数化安装，方便的打包与分享等。
+[Helm](https://helm.sh/zh/docs/) 致力于成为 k8s 集群的应用包管理工具，希望像 linux 系统的 `RPM` `DPKG` 那样成功；确实在 k8s 上部署复杂一点的应用很麻烦，需要管理很多 yaml 文件（configmap,controller,service,rbac,pv,pvc等等），而 helm 能够整齐管理这些文档：版本控制，参数化安装，方便的打包与分享等。
 
 在 helm 中有三个关键概念：Chart，Repo 及 Release
 
@@ -15,11 +15,11 @@ tags:
 - ***Repo***: 即 chart 的仓库，其中有很多个 chart 可供选择，如官方 helm/charts
 - ***Release***: 当一个 Chart 部署后生成一个 release
 
-建议积累一定k8s经验以后再去使用helm；对于初学者来说手工去配置那些yaml文件对于快速学习k8s的设计理念和运行原理非常有帮助，而不是直接去使用helm，面对又一层封装与复杂度。本文基于helm 3（建议版本）。
+建议积累一定 k8s 经验以后再去使用 helm；对于初学者来说手工去配置那些 yaml 文件对于快速学习 k8s 的设计理念和运行原理非常有帮助，而不是直接去使用 helm，面对又一层封装与复杂度。本文基于 helm 3（建议版本）。
 
 ## 安装 helm
 
-在官方repo下载 [release 版本](https://github.com/helm/helm/releases)中自带的二进制文件即可（以 Linux amd64 为例）
+在官方 repo 下载 [release 版本](https://github.com/helm/helm/releases)中自带的二进制文件即可（以 Linux amd64 为例）
 
 ```bash
 $ wget https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz
@@ -29,7 +29,7 @@ $ mv ./linux-amd64/helm /usr/bin
 
 ## 添加相关 Repo
 
-当安装好了Helm之后，可以通过 `helm repo add` 添加 chart 仓库。从 [Artifact Hub](https://artifacthub.io/packages/search?kind=0) 中查找有效的Helm chart仓库。
+当安装好了 Helm 之后，可以通过 `helm repo add` 添加 chart 仓库。从 [Artifact Hub](https://artifacthub.io/packages/search?kind=0) 中查找有效的 Helm chart 仓库。
 
 ```bash
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
