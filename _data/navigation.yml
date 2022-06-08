@@ -31,7 +31,48 @@ main:
   - title: "About"
     url: /about/
 
-
+# kubernetes
+kubernetes:
+  -title: kubernetes
+   children:
+      - title: "监控、日志和调试"
+        url: /kubernetes/监控、日志和调试/
+      - title: "administer-cluster"
+        url: /kubernetes/administer-cluster/
+      - title: "configure-pod-container"
+        url: /kubernetes/configure-pod-container/
+      - title: "manage-kubernetes-objects"
+        url: /kubernetes/manage-kubernetes-objects/
+      - title: "configmap-secret"
+        url: /kubernetes/configmap-secret/
+      - title: "inject-data-application"
+        url: /kubernetes/inject-data-application/
+      - title: "运行应用"
+        url: /kubernetes/运行应用/
+      - title: "运行 Jobs"
+        url: /kubernetes/运行 Jobs/
+      - title: "访问集群中的应用程序"
+        url: /kubernetes/访问集群中的应用程序/
+      - title: "扩展 Kubernetes"
+        url: /kubernetes/扩展 Kubernetes/
+      - title: "TLS"
+        url: /kubernetes/TLS/
+      - title: "管理集群守护进程"
+        url: /kubernetes/管理集群守护进程/
+      - title: "安装服务目录"
+        url: /kubernetes/安装服务目录/        
+      - title: "网络"
+        url: /kubernetes/网络/
+      - title: "用插件扩展 kubectl"
+        url: /kubernetes/用插件扩展 kubectl/
+      - title: "管理巨页（HugePages）"
+        url: /kubernetes/管理巨页（HugePages）/
+      - title: "调度 GPUs"
+        url: /kubernetes/调度 GPUs/        
+      - title: "配置 kubelet 镜像凭据提供程序"
+        url: /kubernetes/配置 kubelet 镜像凭据提供程序/      
+      
+      
 # documentation links
 docs:
   - title: Getting Started
