@@ -4,26 +4,29 @@ excerpt: "您可以在使用包命名空间 https://ghcr.io 的容器注册表�
 toc: true
 toc_label: "Github Container registry"
 toc_icon: "cog"
-categories: Github Container-registry
+categories: Github Container registry
 tags:
   - github
   - gitHub-packages
   - container-registry
   - github-container-registry
+  - ghcr
 ---
 
 您可以在使用包命名空间 https://ghcr.io 的容器注册表中存储和管理 Docker 和 OCI 映像。
 
-## 关于 Container registry 支持
+Github Container registry 以下简称 **ghcr**
 
-Container Registry 目前支持以下容器镜像格式：
+## 关于 ghcr 支持
+
+Github Container Registry 目前支持以下容器镜像格式：
 
 - [Docker Image Manifest V2, Schema 2](https://docs.docker.com/registry/spec/manifest-v2-2/)
 - [Open Container Initiative (OCI) Specifications](https://github.com/opencontainers/image-spec)
 
 安装或发布 Docker 镜像时，容器注册表支持外部层，例如 Windows 镜像。
 
-## Container registry 身份验证
+## ghcr 身份验证
 
 要在 GitHub Actions 工作流程中对容器注册表进行身份验证，请使用 `GITHUB_TOKEN` 以获得最佳安全性和体验。如果您的工作流程使用个人访问令牌 (PAT) 对 `ghcr.io` 进行身份验证，那么我们强烈建议您更新工作流程以使用 `GITHUB_TOKEN`。
 
@@ -78,7 +81,7 @@ https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 Login Succeeded
 ```
 
-## 将镜像推送到 Container registry
+## 将镜像推送到 ghcr
 
 ```shell
 $ docker images
@@ -94,7 +97,9 @@ $ docker tag 97044d2d6d5c ghcr.io/aluopy/dnsutils:1.3
 $ docker push ghcr.io/aluopy/dnsutils:1.3
 ```
 
-## 从 Container registry 拉取镜像
+默认上传到 **ghcr** 后的镜像是私有的，仅个人能看到和下载。可以通过 **Package Settings -- Make public** 来设置为公共，就可以免密码拉取了。
+
+## 从 ghcr 拉取镜像
 
 ### 通过摘要拉取
 
