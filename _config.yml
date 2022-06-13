@@ -101,7 +101,7 @@ author:
   avatar           : "/assets/images/aluopy.png"
   bio              : "Have enthusiasm, Put down uneasiness, Love life, Not reluctant, Have expectations."
   location         : "Shenzhen, Guangdong"
-  email            : aluopy@qq.com
+  email            : hallo@aluopy.cn
   links:
     #- label: "Made Mistakes"
       #icon: "fas fa-fw fa-link"
@@ -188,6 +188,9 @@ kramdown:
 
 # Collections
 collections:
+  docker:
+    output: true
+    permalink: /:collection/:path/
   kubernetes:
     output: true
     permalink: /:collection/:path/
@@ -259,6 +262,19 @@ defaults:
   - scope:
       path: ""
       type: elastic-stack
+    values:
+      layout: single
+      show_date: false
+      read_time: true
+      author_profile: true
+      share: true
+      comment: false
+      related: true
+
+  # _docker
+  - scope:
+      path: ""
+      type: _docker
     values:
       layout: single
       show_date: false
