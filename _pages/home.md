@@ -14,7 +14,7 @@ feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
     title: "Kubernetes"
-    excerpt: "Everything from the menus, sidebars, comments, and more can be configured or set with YAML Front Matter."
+    excerpt: "Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。该项目托管在 CNCF。"
     url: "https://k8s.aluopy.cn/zh-cn/docs/home/"
     btn_class: "btn--primary"
     btn_label: "Read More"
