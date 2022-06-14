@@ -21,7 +21,7 @@ feature_row:
   - image_path: /assets/images/mm-responsive-feature.png
     alt: "fully responsive"
     title: "Prometheus"
-    excerpt: "Prometheus 是一个云原生计算基金会项目，是一个系统和服务监控系统。它以给定的时间间隔从配置的目标收集指标，评估规则表达式，显示结果，并在观察到指定条件时触发警报。"
+    excerpt: "Prometheus 是一个系统和服务监控系统。它以给定的时间间隔从目标收集指标，评估表达式，显示结果，并在指定条件时触发警报。"
     url: "/prometheus/"
     btn_class: "btn--primary"
     btn_label: "Read More"
