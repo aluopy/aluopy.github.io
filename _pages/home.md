@@ -15,7 +15,7 @@ feature_row:
     alt: "customizable"
     title: "Kubernetes"
     excerpt: "Everything from the menus, sidebars, comments, and more can be configured or set with YAML Front Matter."
-    url: "/kubernetes/"
+    url: "https://k8s.aluopy.cn/zh-cn/docs/home/"
     btn_class: "btn--primary"
     btn_label: "Read More"
   - image_path: /assets/images/mm-responsive-feature.png
