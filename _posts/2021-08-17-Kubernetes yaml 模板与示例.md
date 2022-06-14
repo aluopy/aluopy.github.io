@@ -1041,3 +1041,8 @@ stringData:
   username: aluo
   password: pass432
 ```
+
+## 原文链接
+
+[kubernetes yaml 模板与示例-崔亮的博客 (cuiliangblog.cn)](https://www.cuiliangblog.cn/detail/article/26)
+
