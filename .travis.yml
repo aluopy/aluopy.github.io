@@ -1,5 +1,6 @@
 # .travis.yml
 # This file should be at the root of your project
+# Without a credit card, the free version cannot be used
 language: ruby
 cache: bundler
 gemfile: Gemfile
