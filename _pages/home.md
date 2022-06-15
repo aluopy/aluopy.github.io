@@ -34,4 +34,3 @@ feature_row:
     btn_label: "Read More"      
 ---
 
-{% include feature_row %}
