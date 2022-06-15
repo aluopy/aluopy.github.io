@@ -56,9 +56,9 @@ search                   : true # true, false (default)
 search_full_content      : true # true, false (default)
 search_provider          : algolia # lunr (default), algolia
 algolia:
-  application_id         : 6UYA4G2234 # YOUR_APPLICATION_ID
+  application_id         : VC5KQ065G5 # YOUR_APPLICATION_ID
   index_name             : aluopy_github_io # YOUR_INDEX_NAME
-  search_only_api_key    : 6cea323db47d3006c304ea0f4facd8ac # YOUR_SEARCH_ONLY_API_KEY
+  search_only_api_key    : 16b6603323d9f8b86ef42bd7624c3dbc # YOUR_SEARCH_ONLY_API_KEY
   powered_by             : true # true (default), false
   files_to_exclude:
     - _posts/2017-11-28-post-exclude-search.md
