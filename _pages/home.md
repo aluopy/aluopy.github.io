@@ -5,7 +5,8 @@ permalink: /
 hidden: true
 header:
   overlay_color: "#5e616c"
-  overlay_image: /assets/images/mm-home-page-feature.jpg
+  overlay_image: /assets/images/unsplash-image-1.jpg
+  overlay_filter: linear-gradient(rgba(255, 0, 0, 0.5), rgba(0, 255, 255, 0.5))
   actions: ""
 excerpt: >
   Have enthusiasm, Put down uneasiness, Love life, Not reluctant, Have expectations.<br />
