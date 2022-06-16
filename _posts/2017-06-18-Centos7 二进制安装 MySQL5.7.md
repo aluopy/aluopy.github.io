@@ -379,7 +379,7 @@ Enter password:
 
 ## 8、编写启动脚本
 
-本文启动脚本命名为 `mysqld` ,放在 /usr/local/mysql 目录下，执行 `/usr/local/mysql/mysqld start|stop|restart|status` 即可对数据库进行启动|停止|重启|查看运行状态等操作。脚本中 Pass 变量改为自己的数据库密码，将该脚本文件的权限设置为700，因为脚本中有密码。
+本文启动脚本命名为 `mysqld` ,放在 /usr/local/mysql 目录下，执行 `/usr/local/mysql/mysqld start|stop|restart|status` 即可对数据库进行启动\|停止\|重启\|查看运行状态等操作。脚本中 Pass 变量改为自己的数据库密码，将该脚本文件的权限设置为700，因为脚本中有密码。
 
 ***/usr/local/mysql/mysqld***
 
