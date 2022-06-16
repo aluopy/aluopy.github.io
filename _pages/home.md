@@ -9,7 +9,7 @@ header:
   overlay_filter: linear-gradient(rgba(255, 0, 0, 0.5), rgba(0, 255, 255, 0.5))
   actions: ""
 excerpt: >
-  Have enthusiasm, Put down uneasiness, Love life, Not reluctant, Have expectations.<br />
+  Have enthusiasm, Put down uneasiness, Love life,<br />Not reluctant, Have expectations.<br />
   <small><a>:octocat: aluopy</a></small>
 feature_row:
   - image_path: /assets/images/mm-customizable-feature.png
