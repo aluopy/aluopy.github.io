@@ -13,7 +13,7 @@ excerpt: >
   Have enthusiasm, Put down uneasiness, Love life,<br />Not reluctant, Have expectations.<br />
   <small><a>:octocat: aluopy</a></small>
 feature_row:
-  - image_path: /assets/images/kubernetes.png
+  - image_path: /assets/images/mm-customizable-feature.png
     alt: "customizable"
     title: "Kubernetes"
     excerpt: "Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。该项目托管在 CNCF。"
