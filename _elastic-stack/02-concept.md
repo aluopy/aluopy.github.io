@@ -275,7 +275,7 @@ GET _cluster/health
 
 Shard 健康
 
-- <font color="#FF0000">**红色**</font>：集群中未分配至少一个主分片
-- <font color="FFFF00">**黄色**</font>：已分配所有主副本，但未分配至少一个副本
-- <font color="#008000">**绿色**</font>：分配所有分片
+- <font color="#FF0000">红色</font>：集群中未分配至少一个主分片
+- <font color="FFFF00">黄色</font>：已分配所有主副本，但未分配至少一个副本
+- <font color="#008000">绿色</font>：分配所有分片
 
