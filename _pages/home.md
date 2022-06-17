@@ -29,8 +29,9 @@ feature_row:
   - image_path: /assets/images/mm-free-feature.png
     alt: "100% free"
     title: "Elastic-Stack"
+    excerpt: "Elastic Stack 也称为 ELK Stack。能够安全可靠地获取任何来源、任何格式的数据，然后实时地对数据进行搜索、分析和可视化。"
     excerpt: "Free to use however you want under the MIT License. Clone it, fork it, customize it... whatever!"
-    url: "/elastic-stack/"
+    url: "/elastic-stack/overview/"
     btn_class: "btn--primary"
     btn_label: "Read More"      
 ---

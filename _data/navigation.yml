@@ -32,7 +32,32 @@ main:
     url: /about/
       
 
-      
+
+# Elastic-Stack links
+elastic-stack:
+  - title: Elastic Stack
+    url: /elastic-stack/overview/
+  - title: ElasticSearch
+    children:
+      - title: ES 重要概念
+        url: /elastic-stack/concept/
+      - title: ES 安装与配置
+        url: /elastic-stack/installation/
+      - title: 
+  - title: Logstash
+    children:
+      - title:
+        url:
+  - title: Kibana
+    children:
+      - title:
+        url:
+  - title: Beats
+    children:
+      - title:
+        url:
+        
+
 # documentation links
 docs:
   - title: Getting Started
