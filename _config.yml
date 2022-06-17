@@ -271,7 +271,7 @@ defaults:
       comment: false
       related: true
       sidebar:
-        nav: "docs"
+        nav: "elastic-stack"
 
   # _docker
   - scope:
