@@ -7,7 +7,7 @@ header:
   overlay_color: "#5e616c"
   overlay_image: /assets/images/pexels-home-page.jpg
   overlay_filter: linear-gradient(rgba(255, 0, 0, 0.5), rgba(0, 255, 255, 0.5))
-  show_overlay_excerpt: false
+  show_overlay_excerpt: true
   actions: ""
 excerpt: >
   Have enthusiasm, Put down uneasiness, Love life,<br />Not reluctant, Have expectations.<br />
