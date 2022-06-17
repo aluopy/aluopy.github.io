@@ -400,7 +400,7 @@ eyJ2ZXIiOiI4LjIuMCIsImFkciI6WyIxOTIuMTY5LjYwLjUwOjkyMDAiXSwiZmdyIjoiMDdjOTU3MmVl
 $ /usr/share/elasticsearch/bin/elasticsearch-reconfigure-node --enrollment-token eyJ2ZXIiOiI4LjIuMCIsImFkciI6WyIxOTIuMTY5LjYwLjUwOjkyMDAiXSwiZmdyIjoiMDdjOTU3MmVlNTMyNDJhYWRkODRhZTk2ODQ5MmZmZjM3Y2U5N2UxOGJmODA5YTVhMDQzMWNkNTE5ZTQ1NmM3ZSIsImtleSI6InhUS1R6NEFCcTV1VzJfWktMRU9zOmkyb0NneFRNUS1DZFAyc0tET193TXcifQ==
 ```
 
-> <font color="#FF0000">**注意**</font>：**`elasticsearch-reconfigure-node`** 工具只是重新配置新节点使用现有集群生成的**注册令牌**以加入现有群集，具体配置项包含如下内容：
+> **<font color="#FF0000">注意</font>**：**`elasticsearch-reconfigure-node`** 工具只是重新配置新节点使用现有集群生成的**注册令牌**以加入现有群集，具体配置项包含如下内容：
 >
 > - 初始安装默认的安全自动配置将从 `elasticsearch.yml` 删除
 > - 初始安装默认的 [certs] 配置目录将被删除
