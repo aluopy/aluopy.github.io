@@ -7,12 +7,13 @@ header:
   overlay_color: "#5e616c"
   overlay_image: /assets/images/pexels-home-page.jpg
   overlay_filter: linear-gradient(rgba(255, 0, 0, 0.5), rgba(0, 255, 255, 0.5))
+  show_overlay_excerpt: false
   actions: ""
 excerpt: >
   Have enthusiasm, Put down uneasiness, Love life,<br />Not reluctant, Have expectations.<br />
   <small><a>:octocat: aluopy</a></small>
 feature_row:
-  - image_path: /assets/images/mm-customizable-feature.png
+  - image_path: /assets/images/kubernetes.png
     alt: "customizable"
     title: "Kubernetes"
     excerpt: "Kubernetes 是一个开源的容器编排引擎，用来对容器化应用进行自动化部署、 扩缩和管理。该项目托管在 CNCF。"
