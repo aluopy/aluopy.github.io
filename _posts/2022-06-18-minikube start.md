@@ -69,6 +69,14 @@ $ minikube start
 
 ```bash
 $ kubectl get po -A
+NAMESPACE     NAME                               READY   STATUS    RESTARTS      AGE
+kube-system   coredns-64897985d-j76z2            1/1     Running   0             77s
+kube-system   etcd-minikube                      1/1     Running   0             77s
+kube-system   kube-apiserver-minikube            1/1     Running   0             77s
+kube-system   kube-controller-manager-minikube   1/1     Running   0             77s
+kube-system   kube-proxy-42l78                   1/1     Running   0             77s
+kube-system   kube-scheduler-minikube            1/1     Running   0             77s
+kube-system   storage-provisioner                1/1     Running   0             77s
 ```
 
 或者使用如下命令（minikube 可以下载适当版本的 kubectl）：
@@ -94,7 +102,7 @@ $ minikube dashboard
 创建一个示例部署并在端口 8080 上公开它：
 
 ```bash
-$ kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
+$ kubectl create deployment hello-minikube --image=aluopy/echoserver:1.4
 $ kubectl expose deployment hello-minikube --type=NodePort --port=8080
 ```
 
@@ -125,7 +133,7 @@ $ kubectl port-forward service/hello-minikube 7080:8080
 要访问 LoadBalancer 部署，请使用“minikube tunnel”命令。这是一个示例部署：
 
 ```bash
-$ kubectl create deployment balanced --image=k8s.gcr.io/echoserver:1.4  
+$ kubectl create deployment balanced --image=aluopy/echoserver:1.4  
 $ kubectl expose deployment balanced --type=LoadBalancer --port=8080
 ```
 
