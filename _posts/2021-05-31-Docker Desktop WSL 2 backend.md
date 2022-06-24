@@ -9,10 +9,6 @@ tags:
   - docker-desktop
 ---
 
-
-
-# Docker Desktop WSL 2 backend
-
 适用于 Linux 的 Windows 子系统 (WSL) 2 引入了重大的体系结构更改，因为它是由 Microsoft 构建的完整 Linux 内核，允许 Linux 发行版运行而无需管理虚拟机。借助在 WSL 2 上运行的 Docker Desktop，用户可以利用 Linux 工作区，而不必同时维护 Linux 和 Windows 构建脚本。此外，WSL 2 改进了文件系统共享、启动时间，并允许 Docker Desktop 用户访问一些很酷的新功能。
 
 Docker Desktop 使用 WSL 2 中的动态内存分配功能，极大地改善了资源消耗。这意味着，Docker Desktop 仅使用所需数量的 CPU 和内存资源，同时使 CPU 和内存密集型任务（例如构建容器）运行得更快。
