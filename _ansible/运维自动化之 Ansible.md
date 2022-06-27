@@ -24,12 +24,9 @@ tags:
 - Ansible Roles
 ## 1. 自动化运维应用场景
 ### 1.1 云计算运维工程师核心职能
-
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-01.png){: .align-center}
-
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-02.jpg){: .align-center}
-
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-03.jpg){: .align-center}
+![](https://aluopy.github.io/assets/images/ansible-01.png)
+![](https://aluopy.github.io/assets/images/ansible-02.jpg)
+![](https://aluopy.github.io/assets/images/ansible-03.jpg)
 **相关工具**
 
 - 代码管理（SCM）：GitHub、GitLab、BitBucket、SubVersion
@@ -50,8 +47,7 @@ tags:
 - 数据库：MySQL、Oracle、PostgreSQL 等关系型数据库；mongoDB、redis 等 NoSQL 数据库
 - 项目管理（PM）：Jira、Asana、Taiga、Trello、Basecamp、Pivotal Tracker
 ### 1.2 运维职业发展路线
-
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-04.jpg){: .align-left}
+![](https://aluopy.github.io/assets/images/ansible-04.jpg) 
 
 **运维的未来是什么？**
 **一切皆自动化**
@@ -59,7 +55,7 @@ tags:
 “运维的未来是，让研发人员能够借助工具、自动化和流程，并且让他们能够在运维干预极少的情况下部署和运营服务，从而实现自助服务。每个角色都应该努力使工作实现自动化。”——《运维的未来》
 
 ### 1.3 企业实际应用场景分析
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-05.png){: .align-left}
+![](https://aluopy.github.io/assets/images/ansible-05.png) 
 #### 1.3.1 Dev开发环境
 使用者：程序员
 功能：程序员个人的办公电脑或项目的开发测试环境，部署开发软件，测试个人或项目整体的 BUG 的环境
@@ -149,7 +145,7 @@ Ansible 作者 Michael DeHaan（ Cobbler 与 Func 作者），Ansible 的名称�
 - 较强大的多层解决方案 role
 ### 2.3 Ansible 架构
 #### 2.3.1 Ansible 组成
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-06.png){: .align-left}
+![](https://aluopy.github.io/assets/images/ansible-06.png)
 组合 INVENTORY、API、MODULES、PLUGINS 的绿框，可以理解为是 ansible 命令工具，其为核心执行工具。
 
 - INVENTORY：Ansible 管理主机的清单 `/etc/anaible/hosts`
@@ -1009,7 +1005,7 @@ children:
 - **JSON**：JavaScript Object Notation, JavaScript 对象表记法，主要用来数据交换或配置，不支持注释
 - **YAML**：YAML Ain’t Markup Language YAML 不是一种标记语言， 主要用来配置，大小写敏感，不支持 tab
 
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-07.png){: .align-center}
+![](https://aluopy.github.io/assets/images/ansible-07.png) 
 
 **可以用工具互相转换，参考网站：**
 
@@ -2296,7 +2292,7 @@ roles/
 
 roles 目录结构如下所示：
 
-![]({{ site.url }}{{ site.baseurl }}/assets/images/ansible-08.png){: .align-left}
+![](https://aluopy.github.io/assets/images/ansible-08.png) 
 
 每个角色，以特定的层级目录结构进行组织。
 
