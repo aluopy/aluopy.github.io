@@ -160,79 +160,79 @@ sidebar-sample:
 
 # Ansible
 ansible:
-#  - title: Ansible Overview
-#    url: /ansible/overview/
+  - title: Ansible Overview
+    url: /ansible/overview/
   - title: "Automation Intro"
-  children:
-    - title: "云计算运维工程师核心职能"
-      url: /ansible/devops-core-function/
-    - title: "运维职业发展路线"
-      url: /ansible/devops-growth/
-    - title: "企业实际应用场景分析"
-      url: /ansible/application-scenes-analysis/
-    - title: "程序发布"
-      url: /ansible/program-deployment/
-    - title: "自动化运维应用场景"
-      url: /ansible/automation-application-scenes/
-    - title: "常用自动化运维工具"
-      url: /ansible/automation-tools/
+    children:
+      - title: "云计算运维工程师核心职能"
+        url: /ansible/devops-core-function/
+      - title: "运维职业发展路线"
+        url: /ansible/devops-growth/
+      - title: "企业实际应用场景分析"
+        url: /ansible/application-scenes-analysis/
+      - title: "程序发布"
+        url: /ansible/program-deployment/
+      - title: "自动化运维应用场景"
+        url: /ansible/automation-application-scenes/
+      - title: "常用自动化运维工具"
+        url: /ansible/automation-tools/
   - title: "Ansible Intro"
-  children:
-    - title: "Ansible 发展史"
-      url: /ansible/development-history/
-    - title: "Ansible 特性"
-      url: /ansible/characteristic/
-    - title: "Ansible 架构"
-      url: /ansible/architecture/
+    children:
+      - title: "Ansible 发展史"
+        url: /ansible/development-history/
+      - title: "Ansible 特性"
+        url: /ansible/characteristic/
+      - title: "Ansible 架构"
+        url: /ansible/architecture/
   - title: "Ansible Getting Started"
-  children:
-    - title: "Ansible 安装"
-      url: /ansible/install/
-    - title: "Ansible 相关文件"
-      url: /ansible/related-docs/
-    - title: "Ansible 相关工具"
-      url: /ansible/related-tools/
-    - title: "Ansible 常用模块"
-      url: /ansible/common-module/
+    children:
+      - title: "Ansible 安装"
+        url: /ansible/install/
+      - title: "Ansible 相关文件"
+        url: /ansible/related-docs/
+      - title: "Ansible 相关工具"
+        url: /ansible/related-tools/
+      - title: "Ansible 常用模块"
+        url: /ansible/common-module/
   - title: "Playbook"
-  children:
-    - title: "Playbook 介绍"
-      url: /ansible/playbook-intro/
-    - title: "YAML 语言"
-      url: /ansible/yaml-language/
-    - title: "Playbook 核心元素"
-      url: /ansible/playbook-core-element/
-    - title: "Playbook 命令"
-      url: /ansible/playbook-command/
-    - title: "Playbook 初步"
-      url: /ansible/playbook-basics/
-    - title: "Playbook 中使用 Handlers 和 notify"
-      url: /ansible/playbook-use-handlers-notify/
-    - title: "Playbook 中使用 tags 组件"
-      url: /ansible/playbook-use-tags/
-    - title: "Playbook 中使用变量"
-      url: /ansible/playbook-use-variable/
-    - title: "template 模板"
-      url: /ansible/playbook-template/
-    - title: "Playbook 使用 when"
-      url: /ansible/playbook-use-when/
-    - title: "Playbook 使用迭代 with_items"
-      url: /ansible/playbook-use-items/
+    children:
+      - title: "Playbook 介绍"
+        url: /ansible/playbook-intro/
+      - title: "YAML 语言"
+        url: /ansible/yaml-language/
+      - title: "Playbook 核心元素"
+        url: /ansible/playbook-core-element/
+      - title: "Playbook 命令"
+        url: /ansible/playbook-command/
+      - title: "Playbook 初步"
+        url: /ansible/playbook-basics/
+      - title: "Playbook 中使用 Handlers 和 notify"
+        url: /ansible/playbook-use-handlers-notify/
+      - title: "Playbook 中使用 tags 组件"
+        url: /ansible/playbook-use-tags/
+      - title: "Playbook 中使用变量"
+        url: /ansible/playbook-use-variable/
+      - title: "template 模板"
+        url: /ansible/playbook-template/
+      - title: "Playbook 使用 when"
+        url: /ansible/playbook-use-when/
+      - title: "Playbook 使用迭代 with_items"
+        url: /ansible/playbook-use-items/
   - title: "Ansible Roles"
-  children:
-    - title: "Ansible Roles 目录编排"
-      url: /ansible/dir-arrange/
-    - title: "创建 role"
-      url: /ansible/create-role/
-    - title: "Playbook 调用角色"
-      url: /ansible/roles-in-playbook/
-    - title: "roles 中 tags 使用"
-      url: /ansible/tags-in-roles/
-    - title: "实战案例"
-      url: /ansible/examples/
+    children:
+      - title: "Ansible Roles 目录编排"
+        url: /ansible/dir-arrange/
+      - title: "创建 role"
+        url: /ansible/create-role/
+      - title: "Playbook 调用角色"
+        url: /ansible/roles-in-playbook/
+      - title: "roles 中 tags 使用"
+        url: /ansible/tags-in-roles/
+      - title: "实战案例"
+        url: /ansible/examples/
   - title: "Ansible Material"
     url: /ansible/material/
   - title: "Troubleshooting"
-  children:
-    - title: "Ansible 节点过多超时解决方法"
-      url: /ansible/timeout-caused-by-excessive-nodes/
+    children:
+      - title: "Ansible 节点过多超时解决方法"
+        url: /ansible/timeout-caused-by-excessive-nodes/
