@@ -200,7 +200,9 @@ collections:
   elastic-stack:
     output: true
     permalink: /:collection/:path/
-
+  ansible:
+    output: true
+    permalink: /:collection/:path/
 
 # Defaults
 defaults:
@@ -272,11 +274,10 @@ defaults:
       related: true
       sidebar:
         nav: "elastic-stack"
-
   # _docker
   - scope:
       path: ""
-      type: _docker
+      type: docker
     values:
       layout: single
       show_date: false
@@ -285,6 +286,20 @@ defaults:
       share: true
       comment: false
       related: true
+  # _ansible
+  - scope:
+      path: ""
+      type: ansible
+    values:
+      layout: single
+      show_date: false
+      read_time: true
+      author_profile: false
+      share: true
+      comment: false
+      related: true
+      sidebar:
+        nav: "ansible"
 
 # Sass/SCSS
 sass:

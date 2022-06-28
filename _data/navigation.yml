@@ -157,3 +157,82 @@ sidebar-sample:
         url: /
       - title: "Child Page D2"
         url: /
+
+# Ansible
+ansible:
+  - title: Overview
+    url: /ansible/overview/
+  - title: "自动化运维应用场景"
+  children:
+    - title: "云计算运维工程师核心职能"
+      url: /ansible/
+    - title: "运维职业发展路线"
+      url: /ansible/
+    - title: "企业实际应用场景分析"
+      url: /ansible/
+    - title: "程序发布"
+      url: /ansible/
+    - title: "自动化运维应用场景"
+      url: /ansible/
+    - title: "常用自动化运维工具"
+      url: /ansible/
+  - title: "Ansible 介绍和架构"
+  children:
+    - title: "Ansible 发展史"
+      url: /ansible/
+    - title: "Ansible 特性"
+      url: /ansible/
+    - title: "Ansible 架构"
+      url: /ansible/
+  - title: "Ansible 安装和入门"
+  children:
+    - title: "Ansible 安装"
+      url: /ansible/
+    - title: "Ansible 相关文件"
+      url: /ansible/
+    - title: "Ansible 相关工具"
+      url: /ansible/
+    - title: "Ansible 常用模块"
+      url: /ansible/
+  - title: "Playbook"
+  children:
+    - title: "Playbook 介绍"
+      url: /ansible/
+    - title: "YAML 语言"
+      url: /ansible/
+    - title: "Playbook 核心元素"
+      url: /ansible/
+    - title: "Playbook 命令"
+      url: /ansible/
+    - title: "Playbook 初步"
+      url: /ansible/
+    - title: "Playbook 中使用 Handlers 和 notify"
+      url: /ansible/
+    - title: "Playbook 中使用 tags 组件"
+      url: /ansible/
+    - title: "Playbook 中使用变量"
+      url: /ansible/
+    - title: "template 模板"
+      url: /ansible/
+    - title: "Playbook 使用 when"
+      url: /ansible/
+    - title: "Playbook 使用迭代 with_items"
+      url: /ansible/
+  - title: "Roles 角色"
+  children:
+    - title: "Ansible Roles 目录编排"
+      url: /ansible/
+    - title: "创建 role"
+      url: /ansible/
+    - title: "Playbook 调用角色"
+      url: /ansible/
+    - title: "roles 中 tags 使用"
+      url: /ansible/
+    - title: "实战案例"
+      url: /ansible/
+  - title: "Ansible 推荐学习资料"
+    url: /ansible/
+  - title: "Troubleshooting"
+  children:
+    - title: "Ansible 节点过多超时解决方法"
+      url: /ansible/
