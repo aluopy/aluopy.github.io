@@ -161,10 +161,7 @@ sidebar-sample:
 # Ansible
 ansible:
   - title: ANSIBLE AUTOMATION
-  - title: "Automation Intro"
-    url: /ansible/automation-intro/
-  - title: "ANSIBLE Intro"
-    url: /ansible/ansible-intro/
+    url: /ansible/ansible-automation/
   - title: "Getting Started"
     children:
       - title: "Ansible 安装"
