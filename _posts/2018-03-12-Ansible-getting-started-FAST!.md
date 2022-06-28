@@ -1,5 +1,5 @@
 ---
-title: "A system administrator's guide to getting started with Ansible - FAST!"
+title: "Ansible-getting-started-FAST!"
 toc: true
 categories: Ansible
 tags:
