@@ -1,6 +1,6 @@
 ---
 title: "Jenkins Install"
-toc: true
+toc: false
 toc_label: "Jenkins Install"
 #toc_icon: "cog"
 categories: Jenkins
