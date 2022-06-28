@@ -188,9 +188,6 @@ kramdown:
 
 # Collections
 collections:
-  docker:
-    output: true
-    permalink: /:collection/:path/
   kubernetes:
     output: true
     permalink: /:collection/:path/
@@ -274,18 +271,6 @@ defaults:
       related: true
       sidebar:
         nav: "elastic-stack"
-  # _docker
-  - scope:
-      path: ""
-      type: docker
-    values:
-      layout: single
-      show_date: false
-      read_time: true
-      author_profile: true
-      share: true
-      comment: false
-      related: true
   # _ansible
   - scope:
       path: ""
