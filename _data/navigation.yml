@@ -160,8 +160,8 @@ sidebar-sample:
 
 # Ansible
 ansible:
-  - title: Ansible Overview
-    url: /ansible/overview/
+#  - title: Ansible Overview
+#    url: /ansible/overview/
   - title: "Automation Intro"
   children:
     - title: "云计算运维工程师核心职能"
