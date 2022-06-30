@@ -2,7 +2,7 @@
 title: "minikube start"
 toc: true
 toc_label: "minikube start"
-toc_icon: "cog"
+#toc_icon: "cog"
 categories: Minikube
 tags:
   - kubernetes

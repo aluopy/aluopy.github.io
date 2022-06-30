@@ -4,7 +4,7 @@ excerpt: "本指南简要介绍了一些关键的基本网络概念，供任何�
 toc: true
 toc_label: "About Networking"
 toc_icon: "cog"
-categories: Network
+categories: network
 tags:
   - network
 ---
