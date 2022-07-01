@@ -89,9 +89,15 @@ sed -n '/xzy/p' $filename
 | `/GUI/d`                                                     | 删除所有包含“GUI”的行。                                      |
 | `s/GUI//g`                                                   | 删除“GUI”的所有实例，保留每行的其余部分。                    |
 
-用一个长度为零的字符串替换另一个字符串相当于在输入行中删除该字符串。这使该行的其余部分保持不变。将 s/GUI// 应用于该行
+用一个长度为零的字符串替换另一个字符串相当于在输入行中删除该字符串。这使该行的其余部分保持不变。将 `s/GUI//` 应用于该行
 
 ```
 The most important parts of any application are its GUI and sound effects
+```
+
+结果是：
+
+```
+The most important parts of any application are its  and sound effects
 ```
 
