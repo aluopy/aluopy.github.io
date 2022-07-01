@@ -44,7 +44,7 @@ HTTP 还允许您在服务器和浏览器之间创建安全的加密连接。它
 
 接下来在本教程中，我们将了解主要的 HTTP 和 HTTPS 区别。
 
-**Note:** 
+**主要区别:** 
 
 - HTTP 缺乏加密数据的安全机制，而 HTTPS 提供 SSL 或 TLS 数字证书来保护服务器和客户端之间的通信。
 - HTTP 在应用层运行，而 HTTPS 在传输层运行。
@@ -88,7 +88,7 @@ HTTP 还允许您在服务器和浏览器之间创建安全的加密连接。它
 | URL       | HTTP URL 以 http:// 开头                                     | HTTPS URL 以 https:// 开头                                   |
 | 用于      | 它非常适合为博客等信息消费而设计的网站                       | 如果网站需要收集信用卡号等隐私信息，那么它是一种更安全的协议 |
 | 加扰      | HTTP 不会扰乱要传输的数据。这就是为什么黑客更有可能获得传输的信息 | HTTPS 在传输前对数据进行加扰。在接收端，它解扰以恢复原始数据。因此，传输的信息是安全的，无法被黑客入侵 |
-| 协议      | 它在 [TCP/IP]() 级别运行                                     | HTTPS 没有任何单独的协议。它使用 HTTP 运行，但使用加密的 TLS/SSL 连接。 |
+| 协议      | 它在 [TCP/IP](https://aluopy.cn/network/tcp-ip-model/) 级别运行 | HTTPS 没有任何单独的协议。它使用 HTTP 运行，但使用加密的 TLS/SSL 连接。 |
 | 域名验证  | HTTP 网站不需要 SSL                                          | HTTPS 需要 SSL 证书                                          |
 | 数据加密  | HTTP 网站不使用加密                                          | HTTPS 网站使用数据加密                                       |
 | 搜索排名  | HTTP 不会提高搜索排名                                        | HTTPS 有助于提高搜索排名                                     |
@@ -99,15 +99,15 @@ HTTP 还允许您在服务器和浏览器之间创建安全的加密连接。它
 
 现在在这个 HTTPS 和 HTTP 区别教程中，我们将介绍与 HTTPS 一起使用的 SSL/TLS 证书的类型：
 
-### Domain Validation:
+### Domain Validation
 
 域验证验证申请证书的人是域名的所有者。这种类型的验证通常需要几分钟到几个小时。
 
-### Organization Validation:
+### Organization Validation
 
 证书颁发机构不仅验证域的所有权，还验证所有者的身份。这意味着可能会要求所有者提供个人身份证明文件以证明其身份。
 
-### Extended Validation:
+### Extended Validation
 
 扩展验证是最高级别的验证。它包括验证域名所有权、所有者身份以及业务注册证明。
 
