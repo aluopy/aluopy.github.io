@@ -15,7 +15,7 @@ toc: true
 #actions:
 #  - label: "More Info"
 #    url: "https://unsplash.com"
-classes: wide
+#classes: wide
 categories: network
 tags:
   - network
