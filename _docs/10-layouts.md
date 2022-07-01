@@ -25,7 +25,10 @@ The base layout all other layouts inherit from. There's not much to this layout 
 * page footer
 * scripts
 
-**Note:** You won't ever assign this layout directly to a post or page. Instead all other layouts will build off of it by setting `layout: default` in their YAML Front Matter.
+**主要区别:** 
+
+- 
+
 {: .notice--warning}
 
 ### Layout based and user-defined classes
@@ -466,7 +469,7 @@ To overlay text on top of a header image you have a few more options:
 | **cta_label**            | Deprecated, use `actions` instead. Call to action button text label. | `more_label` in UI Text data file |
 | **cta_url**              | Deprecated, use `actions` instead. Call to action button URL. | |
 
-  [mdn-linear-gradient]: https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient()
+[mdn-linear-gradient]: https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient()
 
 With this YAML Front Matter:
 

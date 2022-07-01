@@ -1,5 +1,6 @@
 ---
-title: "TCP 3-Way Handshake (SYN, SYN-ACK,ACK)"
+title: "TCP 三次握手 (SYN, SYN-ACK,ACK)"
+excerpt: ""
 permalink: /network/tcp-3-way-handshake/
 toc: true
 #toc_label: ""
@@ -10,12 +11,8 @@ tags:
   - tcp
 ---
 
-在本文中，我们将解释：
-
-- [What is TCP Three-Way Hand Shake?](https://aluopy.cn/network/tcp-3-way-handshake#1)
-- [TCP message types](https://aluopy.cn/network/tcp-3-way-handshake#2)
-- [TCP Three-Way Handshake Process](https://aluopy.cn/network/tcp-3-way-handshake#3)
-- [Real-world Example](https://aluopy.cn/network/tcp-3-way-handshake#4)
+**ProTip:**  From [Guru99](https://www.guru99.com/)✨
+{: .notice--info}
 
 ## TCP 三次握手
 
@@ -38,7 +35,7 @@ TCP 流量以三次握手开始。在这个 TCP 握手过程中，客户端需�
 
 ![](https://aluopy.github.io/assets/images/TCP3WayHand1.webp) 
 
-< center>3 way Handshake Diagram< /center>
+<div align = "center">3 way Handshake Diagram</div>
 
 - **Step 1：**第一步，客户端与服务器建立连接。它发送一个带有 SYN 的段，并通知服务器客户端应该开始通信，以及它的序列号应该是什么。
 - **Step 2：**在此步骤中，服务器使用 SYN-ACK 信号集响应客户端请求。 ACK 帮助您表示收到的段的响应，SYN 表示它应该能够从段开始的序列号。
@@ -68,11 +65,3 @@ TCP 流量以三次握手开始。在这个 TCP 握手过程中，客户端需�
 - 在这第二步中，服务器使用 SYN-ACK 信号集响应客户端请求
 - 在这最后一步中，客户端确认服务器的响应
 - TCP 自动终止两个独立端点之间的连接
-
-## Links
-
-- [HTTP vs HTTPS: What is Difference Between HTTP and HTTPS? Full Form](https://www.guru99.com/difference-http-vs-https.html)
-- [FTP vs SFTP: What is the Difference Between FTP and SFTP](https://www.guru99.com/ftp-vs-sftp.html)
-- [TCP/IP vs OSI Model: What’s the Difference?](https://www.guru99.com/difference-tcp-ip-vs-osi-model.html)
-- [TCP vs UDP: Key Difference between TCP and UDP Protocol](https://www.guru99.com/tcp-vs-udp-understanding-the-difference.html)
-- [IP Packet Header: Format, Fields](https://www.guru99.com/ip-header.html)
