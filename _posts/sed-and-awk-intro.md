@@ -102,3 +102,25 @@ The most important parts of any application are its GUI and sound effects
 The most important parts of any application are its  and sound effects
 ```
 
+反斜杠强制 sed 替换命令继续到下一行。这具有在第一行末尾使用换行符作为替换字符串的效果。
+
+```
+s/^  */\
+/g
+```
+
+此替换用换行符替换行首空格。最终结果是用段落之间的空行替换段落缩进。
+
+
+
+后跟一个或多个操作的地址范围可能需要打开和关闭的大括号，并带有适当的换行符。
+
+```
+/[0-9A-Za-z]/,/^$/{
+/^$/d
+}
+```
+
+这只会删除每组连续空白行中的第一个。这对于单间距文本文件可能很有用，但在段落之间保留空白行。
+
+> sed 使用的常用分隔符是 /。但是，sed 允许使用其他分隔符，例如 %。当 / 是替换字符串的一部分时，这很有用，例如在文件路径名中。见例 11-10 和例 16-32。
