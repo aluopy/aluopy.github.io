@@ -4,7 +4,9 @@ excerpt: "这是对 sed 和 awk 文本处理实用程序的简要介绍。我们
 toc: true
 #toc_label: "Sed and Awk"
 #toc_icon: "cog"
-categories: [ sed, awk ]
+categories: 
+  - sed 
+  - awk
 tags:
   - linux
   - sed
