@@ -1,7 +1,8 @@
 ---
 title: "Kubernetes yaml 模板与示例"
+permalink: /kubernetes/kubernetes-yaml-examples/
 toc: true
-categories: Kubernetes
+categories: kubernetes
 tags:
   - kubernetes
   - yaml

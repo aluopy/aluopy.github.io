@@ -1,7 +1,8 @@
 ---
 title: "Linux 合并两块磁盘 (>2TB) 并挂载到同一目录"
+permalink: /linux/merge-disks/
 toc: true
-categories: Linux
+categories: linux
 tags:
   - lvm
   - pv

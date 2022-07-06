@@ -1,11 +1,12 @@
 ---
 title: "Prometheus 安装与配置"
+permalink: /prometheus/install/
 excerpt: "Prometheus、Alertmanager、Grafana 安装与配置，Alerting rules。"
 toc: true
 categories:
-  - Prometheus
-  - Alertmanager
-  - Grafana
+  - prometheus
+  - alertmanager
+  - grafana
 tags:
   - prometheus
   - alertmanager

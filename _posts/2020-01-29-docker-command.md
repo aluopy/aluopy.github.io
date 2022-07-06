@@ -3,7 +3,7 @@ title: "Docker 命令大全"
 toc: true
 toc_label: Docker 命令大全
 toc_icon: "cog"
-categories: Docker
+categories: docker
 tags:
   - docker
   - command

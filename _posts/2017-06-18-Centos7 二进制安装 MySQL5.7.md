@@ -3,7 +3,7 @@ title: "Centos7 二进制安装 MySQL5.7"
 toc: true
 toc_label: "Centos7 二进制安装 MySQL5.7"
 toc_icon: "cog"
-categories: MySQL
+categories: mysql
 tags:
   - mysql
   - centos

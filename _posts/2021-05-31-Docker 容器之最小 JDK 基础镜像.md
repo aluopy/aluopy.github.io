@@ -1,7 +1,7 @@
 ---
 title: "Docker 容器之最小 JDK 基础镜像"
 toc: true
-categories: Docker
+categories: docker
 tags:
   - docker
   - Dockerfile

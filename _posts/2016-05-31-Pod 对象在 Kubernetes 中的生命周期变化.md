@@ -1,7 +1,7 @@
 ---
 title: "Pod 对象在 Kubernetes 中的生命周期变化"
 toc: false
-categories: Kubernetes
+categories: kubernetes
 tags:
   - kubernetes
   - pod

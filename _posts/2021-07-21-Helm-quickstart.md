@@ -1,7 +1,8 @@
 ---
 title: "Helm Quickstart"
+permalink: /helm/quickstart/
 toc: true
-categories: Helm
+categories: helm
 tags:
   - kubernetes
   - helm

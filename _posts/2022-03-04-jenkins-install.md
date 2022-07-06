@@ -1,9 +1,10 @@
 ---
 title: "Jenkins Install"
+permalink: /jenkins/install/
 toc: false
 toc_label: "Jenkins Install"
 #toc_icon: "cog"
-categories: Jenkins
+categories: jenkins
 tags:
   - jenkins
 ---

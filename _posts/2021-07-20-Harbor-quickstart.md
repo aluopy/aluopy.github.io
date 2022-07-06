@@ -1,7 +1,8 @@
 ---
 title: "Harbor Quickstart"
+permalink: /harbor/quickstart/
 toc: true
-categories: Harbor
+categories: harbor
 tags:
   - harbor
   - docker

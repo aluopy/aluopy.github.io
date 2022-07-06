@@ -1,9 +1,10 @@
 ---
 title: "Docker Desktop WSL 2 backend"
+permalink: /docker/docker-desktop-wsl2-backend/
 toc: true
 toc_label: Docker Desktop WSL 2 backend
 toc_icon: "cog"
-categories: Docker
+categories: docker
 tags:
   - docker
   - docker-desktop

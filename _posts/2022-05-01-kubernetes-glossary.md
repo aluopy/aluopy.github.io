@@ -1,10 +1,11 @@
 ---
 title: "Kubernetes 标准化术语表"
+permalink: /kubernetes/glossary/
 excerpt: "本词汇表旨在成为 Kubernetes 术语的全面、标准化列表。它包括特定于 Kubernetes 的技术术语，以及提供有用上下文的更一般的术语。"
 toc: true
 toc_label: "Kubernetes 标准化术语表"
 toc_icon: "cog"
-categories: Kubernetes
+categories: kubernetes
 tags:
   - kubernetes
   - glossary

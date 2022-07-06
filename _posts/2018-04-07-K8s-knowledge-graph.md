@@ -2,7 +2,7 @@
 title: "Kubernetes Knowledge Graph"
 excerpt: "Kubernetes 知识图谱。"
 toc: true
-categories: Kubernetes
+categories: kubernetes
 tags:
   - kubernetes
 ---

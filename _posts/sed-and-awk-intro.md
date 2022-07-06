@@ -1,14 +1,17 @@
 ---
 title: "Sed and Awk"
+permalink: /shell/resource/
 excerpt: "这是对 sed 和 awk 文本处理实用程序的简要介绍。我们将在这里只处理一些基本命令，但这足以理解 shell 脚本中的简单 sed 和 awk 结构。"
 toc: true
 #toc_label: "Sed and Awk"
 #toc_icon: "cog"
 categories: 
-  - sed 
+  - shell
+  - sed
   - awk
 tags:
   - linux
+  - shell
   - sed
   - awk
 ---

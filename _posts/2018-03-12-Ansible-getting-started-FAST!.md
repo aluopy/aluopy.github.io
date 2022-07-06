@@ -1,7 +1,7 @@
 ---
 title: "Ansible-getting-started-FAST!"
 toc: true
-categories: Ansible
+categories: ansible
 tags:
   - ansible
   - redhat

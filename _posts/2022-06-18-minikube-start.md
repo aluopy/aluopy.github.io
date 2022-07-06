@@ -1,9 +1,10 @@
 ---
 title: "minikube start"
+permalink: /kubernetes/minikube-install/
 toc: true
 toc_label: "minikube start"
 #toc_icon: "cog"
-categories: Minikube
+categories: kubernetes
 tags:
   - kubernetes
   - minikube

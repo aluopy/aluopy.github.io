@@ -3,7 +3,7 @@ title: "rabbitmq install"
 toc: true
 toc_label: "rabbitmq install"
 #toc_icon: "cog"
-categories: RabbitMQ
+categories: rabbitMQ
 tags:
   - rabbitmq
 ---

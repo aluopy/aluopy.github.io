@@ -1,7 +1,7 @@
 ---
 title: "PostgreSQL 设置通过密码验证远程连接数据库"
 toc: true
-categories: PostgreSQL 
+categories: postgresql 
 tags:
   - pgsql
 ---

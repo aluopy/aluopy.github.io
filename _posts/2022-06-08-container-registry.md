@@ -1,10 +1,11 @@
 ---
 title: "Github Container registry"
+permalink: /github/ghcr/
 excerpt: "您可以在使用包命名空间 https://ghcr.io 的容器注册表中存储和管理 Docker 和 OCI 映像。"
 toc: true
 toc_label: "Github Container registry"
 toc_icon: "cog"
-categories: Github Container registry
+categories: ghcr
 tags:
   - github
   - gitHub-packages
