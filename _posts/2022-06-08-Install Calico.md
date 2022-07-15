@@ -5,10 +5,10 @@ excerpt: "Get Calico up and running in your Kubernetes cluster."
 toc: true
 #toc_label: "Install Calico"
 #toc_icon: "cog"
-categories: Kubernetes
+categories: kubernetes
 tags:
   - kubernetes
-  - Calico
+  - calico
   - network
 ---
 
