@@ -1,8 +1,9 @@
 ---
-title: "Kubernetes-Metrics-Server"
+title: "Kubernetes Metrics Server"
+permalink: /kubernetes/metrics-server/
 toc: true
-toc_label: "kubernetes-metrics-server"
-toc_icon: "cog"
+#toc_label: "kubernetes-metrics-server"
+#toc_icon: "cog"
 categories: Kubernetes
 tags:
   - kubernetes
