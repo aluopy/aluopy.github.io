@@ -41,7 +41,8 @@ $ sed -i 's,^ExecStart.*,&cni --pod-infra-container-image=registry.aliyuncs.com/
 
 ```shell
 $ systemctl daemon-reload
-$ systemctl enable cri-docker.service --now
+$ systemctl enable --now cri-docker.service
+$ systemctl enable --now cri-docker.socket
 ```
 
 查看 cri-dockerd 状态
