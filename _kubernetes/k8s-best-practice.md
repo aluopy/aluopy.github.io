@@ -204,8 +204,12 @@ $ echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
 
 ### kind
 
-
+[kind – Quick Start (k8s.io)](https://kind.sigs.k8s.io/docs/user/quick-start/)
 
 ### minikube
 
+[minikube start \| minikube (k8s.io)](https://minikube.sigs.k8s.io/docs/start/)
+
 ### kubeadm
+
+[安装 kubeadm \| Kubernetes](https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
