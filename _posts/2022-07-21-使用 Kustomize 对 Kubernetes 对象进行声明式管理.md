@@ -15,7 +15,7 @@ tags:
 
 [Kustomize](https://github.com/kubernetes-sigs/kustomize) 是一个独立的工具，用来通过 kustomization 文件定制 Kubernetes 对象。
 
-> #### TL;DR
+> **TL;DR**
 >
 > - Kustomize 帮助以无模板的方式自定义配置文件
 > - Kustomize 提供了许多方便的方法，例如生成器，使定制更容易
