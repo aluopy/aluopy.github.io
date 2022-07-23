@@ -1,6 +1,6 @@
 ---
 title: "使用 Kustomize 对 Kubernetes 对象进行声明式管理"
-permalink: /kubernetes/Kustomize/
+permalink: /kubernetes/kustomize/
 #excerpt: ""
 toc: true
 #toc_label: "kubernetes-metrics-server"
