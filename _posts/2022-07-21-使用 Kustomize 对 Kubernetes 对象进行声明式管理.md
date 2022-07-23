@@ -5,7 +5,7 @@ permalink: /kubernetes/Kustomize/
 toc: true
 #toc_label: "kubernetes-metrics-server"
 #toc_icon: "cog"
-categories: Kubernetes
+categories: kubernetes
 tags:
   - kubernetes
   - Kustomize

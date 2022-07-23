@@ -4,7 +4,7 @@ permalink: /kubernetes/metrics-server/
 toc: true
 #toc_label: "kubernetes-metrics-server"
 #toc_icon: "cog"
-categories: Kubernetes
+categories: kubernetes
 tags:
   - kubernetes
   - metrics-server
