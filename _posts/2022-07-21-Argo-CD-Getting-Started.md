@@ -14,7 +14,7 @@ tags:
   - gitops
 ---
 
-Argo CD 是用于 Kubernetes 的声明式 GitOps 持续交付工具。
+[Argo CD](https://argoproj.github.io/) 是用于 Kubernetes 的声明式 GitOps 持续交付工具。
 
 ## 安装 Argo CD
 
@@ -55,7 +55,7 @@ argocd-server-5f49f99cfd-whx8m                      1/1     Running   0         
 
 ## 安装 Argo CD CLI
 
-下载并安装最新版本
+安装最新版本
 
 ```shell
 $ curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
@@ -67,7 +67,7 @@ $ chmod +x /usr/local/bin/argocd
 ```shell
 # 从 https://github.com/argoproj/argo-cd/releases 中选择所需的 TAG
 $ VERSION=<TAG>
-$ curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-linux-amd64
+$ curl -fsSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-linux-amd64
 $ chmod +x /usr/local/bin/argocd
 ```
 
@@ -149,8 +149,11 @@ Xd84OgIUclL6gPM1
 ```shell
 # 获取 admin 帐户初始密码
 $ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-# 登录
-$ argocd login <ARGOCD_SERVER>
+Xd84OgIUclL6gPM1
+
+# 登录，10.96.25.35 为 argocd-server 的 ClusterIP
+$ argocd login 10.96.25.35
+
 # 更改密码
 $ argocd account update-password
 ```
@@ -195,19 +198,19 @@ $ argocd app create guestbook --repo https://github.com/argoproj/argocd-example-
 
 点击 **+ New App** 按钮，如下图：
 
-![](https://aluopy.github.io/assets/images/argocd-001.png)
+![](https://aluopy.github.io/assets/images/argocd-001.png)	
 
 **GENERAL**，设置 Application Name（应用名称）：`guestbook`，Project Name（项目名称）： `default`，SYNC POLICY（同步策略）：`Manual`
 
-![](https://aluopy.github.io/assets/images/argocd-002.png)
+![](https://aluopy.github.io/assets/images/argocd-002.png)	
 
-**SOURCE**，设置 Repository URL（存储库 URL）：`dd`，Revision：`HEAD`，Path：`guestbook`
+**SOURCE**，设置 Repository URL（存储库 URL）：`https://github.com/argoproj/argocd-example-apps.git`，Revision：`HEAD`，Path：`guestbook`
 
-![](https://aluopy.github.io/assets/images/argocd-003.png)
+![](https://aluopy.github.io/assets/images/argocd-003.png)	
 
 **DESTINATION**，将 Cluster URL 设置为 `https://kubernetes.default.svc`，并将 Namespace 设置为 `default`
 
-![](https://aluopy.github.io/assets/images/argocd-004.png)
+![](https://aluopy.github.io/assets/images/argocd-004.png)	
 
 填写完以上信息后，点击 UI 顶部的 Create 按钮来创建 guestbook 应用。
 
@@ -245,6 +248,6 @@ $ argocd app sync guestbook
 
 ### 通过 UI 同步
 
-![](https://aluopy.github.io/assets/images/argocd-005.png)
+![](https://aluopy.github.io/assets/images/argocd-005.png)	
 
-![](https://aluopy.github.io/assets/images/argocd-006.png)
+![](https://aluopy.github.io/assets/images/argocd-006.png)	
