@@ -1,215 +1,101 @@
-# K8S-Best-Practice
+---
+K8S-Best-Practice
+---
 
-## 实验环境
+## Node
 
-| NAME | ROLES         | VERSION | INTERNAL-IP   | RESOURCE-QUOTA | OS-IMAGE              | KERNEL-VERSION              | CONTAINER-RUNTIME |
-| ---- | ------------- | ------- | ------------- | -------------- | --------------------- | --------------------------- | ----------------- |
-| m1   | Control plane | v1.24.3 | 192.168.20.17 | 2C4G           | CentOS Linux 7 (Core) | 5.18.12-1.el7.elrepo.x86_64 | docker://20.10.17 |
-| w1   | Worker node   | v1.24.3 | 192.168.20.18 | 2C4G           | CentOS Linux 7 (Core) | 5.18.12-1.el7.elrepo.x86_64 | docker://20.10.17 |
-| w2   | Worker node   | v1.24.3 | 192.168.20.19 | 2C4G           | CentOS Linux 7 (Core) | 5.18.12-1.el7.elrepo.x86_64 | docker://20.10.17 |
+Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。 节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。 每个节点包含运行 Pods 所需的服务； 这些节点由控制面负责管理。
 
-## 安装工具
+通常集群中会有若干个节点；而在一个学习用或者资源受限的环境中，你的集群中也可能 只有一个节点。
 
-### kubectl
-
-Kubernetes 命令行工具 [kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/)，使得你可以对 Kubernetes 集群运行命令。 你可以使用 kubectl 来部署应用、监测和管理集群资源以及查看日志。
-
-#### 安装 kubectl
-
-##### 准备开始
-
-kubectl 版本和集群版本之间的差异必须在一个小版本号内。 例如：v1.24 版本的客户端能与 v1.23、 v1.24 和 v1.25 版本的控制面通信。 用最新兼容版的 kubectl 有助于避免不可预见的问题。
-
-在 Linux 系统中安装 kubectl 有如下几种方法：
-
-- 用 curl 在 Linux 系统中安装 kubectl
-- 用原生包管理工具安装
-- 用其他包管理工具安装
-
-##### 用 curl 在 Linux 系统中安装 kubectl
-
-1. 下载最新发行版
-
-   ```shell
-   $ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-   ```
-
-2. 验证该可执行文件（可选步骤）
-
-   下载 kubectl 校验和文件：
-
-   ```shell
-   $ curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-   ```
-
-   基于校验和文件，验证 kubectl 的可执行文件：
-
-   ```shell
-   $ echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
-   kubectl: OK
-   ```
-
-   > **说明：**
-   >
-   > 下载的 kubectl 与校验和文件版本必须相同。
-
-3. 安装 kubectl
-
-   ```shell
-   $ install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-   ```
-
-   > **说明：**
-   >
-   > 即使没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
-   >
-   > ```bash
-   > $ chmod +x kubectl
-   > $ mkdir -p ~/.local/bin
-   > $ mv ./kubectl ~/.local/bin/kubectl
-   > # 之后将 ~/.local/bin 附加（或前置）到 $PATH
-   > ```
-
-4. 查看 kubectl 版本信息
-
-   ```shell
-   $ kubectl version --client
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
-   Client Version: version.Info{Major:"1", Minor:"24", GitVersion:"v1.24.3", GitCommit:"aef86a93758dc3cb2c658dd9657ab4ad4afc21cb", GitTreeState:"clean", BuildDate:"2022-07-13T14:30:46Z", GoVersion:"go1.18.3", Compiler:"gc", Platform:"linux/amd64"}
-   Kustomize Version: v4.5.4
-   
-   $ kubectl version --client --output=yaml
-   clientVersion:
-     buildDate: "2022-07-13T14:30:46Z"
-     compiler: gc
-     gitCommit: aef86a93758dc3cb2c658dd9657ab4ad4afc21cb
-     gitTreeState: clean
-     gitVersion: v1.24.3
-     goVersion: go1.18.3
-     major: "1"
-     minor: "24"
-     platform: linux/amd64
-   kustomizeVersion: v4.5.4
-   ```
-
-##### 用原生包管理工具安装
-
-添加阿里云 YUM 软件源
+节点上的组件包括 kubelet、 容器运行时以及 kube-proxy。
 
 ```shell
-$ cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-EOF
-```
+# 查看集群中的 Node 信息
+$ kubectl get nodes
+$ kubectl get nodes -o wide
 
-安装 kubectl
+# 查看 w2 节点状态和其他细节信息
+$ kubectl describe node w2
 
-```shell
-$ yum install -y kubectl
-```
+# 标记 w2 节点为不可调度
+$ kubectl cordon w2
 
-##### 用其他包管理工具安装
+# 对 w2 节点进行清空操作，为节点维护做准备
+$ kubectl drain w2
 
-###### Snap
+# 标记 w2 节点为可以调度
+$ kubectl uncordon w2
 
-如果你使用的 Ubuntu 或其他 Linux 发行版，内建支持 [snap](https://snapcraft.io/docs/core/install) 包管理工具， 则可用 [snap](https://snapcraft.io/) 命令安装 kubectl
+# 显示给定节点的度量值
+$ kubectl top node my-node
 
-```shell
-$ snap install kubectl --classic
-$ kubectl version --client
-```
-
-###### Homebrew
-
-如果你使用 Linux 系统，并且装了 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) 包管理工具， 则可以使用这种方式[安装](https://docs.brew.sh/Homebrew-on-Linux#install) kubectl
-
-```shell
-$ brew install kubectl
-$ kubectl version --client
-```
-
-#### 配置 kubectl
-
-配置使用 kubectl 命令，通过 kubeadm 安装的 k8s 集群配置如下：
-
-**非 root 用户**
-
-```shell
-$ mkdir -p $HOME/.kube
-$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
-```
-
-**root 用户**
-
-```shell
-$ echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> /etc/profile
-$ source /etc/profile
-```
-
-#### 验证 kubectl 配置
-
-通过获取集群状态的方法，检查是否已恰当的配置了 kubectl：
-
-```shell
+# 显示主控节点和服务的地址
 $ kubectl cluster-info
-Kubernetes control plane is running at https://192.168.20.17:6443
-CoreDNS is running at https://192.168.20.17:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
-To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
-```
-
-如果返回一个 URL，则意味着 kubectl 成功的访问到了集群。
-
-如果命令 `kubectl cluster-info` 返回了 url，但还不能访问集群，那可以用以下命令来检查配置是否妥当：
-
-```shell
+# 将当前集群状态转储到标准输出
 $ kubectl cluster-info dump
+
+# 将当前集群状态输出到 /path/to/cluster-state
+$ kubectl cluster-info dump --output-directory=/path/to/cluster-state
+
+# 查看当前节点上存在的现有污点。
+$ kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+
+# 给节点 node1 增加一个污点，它的键名是 dedicated，键值是 special-user，效果是 NoSchedule
+# 如果已存在具有指定键和效果的污点，则替换其值为指定值。
+$ kubectl taint nodes node1 dedicated=special-user:NoSchedule
+# 移除节点上的某个污点
+$ kubectl taint nodes node1 dedicated=special-user:NoSchedule-
+
+# 给节点打标签（角色标签）
+$ kubectl label node m1 node-role.kubernetes.io/master=master
+$ kubectl label node w1 node-role.kubernetes.io/worker=worker
 ```
 
-#### 启动 kubectl 自动补全
-
-kubectl 的 Bash 补全脚本可以用命令 `kubectl completion bash` 生成。 在 shell 中导入（Sourcing）补全脚本，将启用 kubectl 自动补全功能。补全脚本依赖于工具 [**bash-completion**](https://github.com/scop/bash-completion)， 所以要先安装它。
+## Pod
 
 ```shell
-# 检查 bash-completion 是否已安装
-$ type _init_completion
-
-# 安装 bash-completion
-$ yum install bash-completion -y
-$ source /usr/share/bash-completion/bash_completion
-
-# 启动 kubectl 自动补全
-# 当前用户
-# $ echo 'source <(kubectl completion bash)' >>~/.bashrc
-# 系统全局
-$ kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
-
-# 如果 kubectl 有关联的别名，可以扩展 shell 补全来适配此别名
-$ echo 'alias k=kubectl' >>~/.bashrc && source ~/.bashrc
-$ echo 'complete -o default -F __start_kubectl k' >>~/.bashrc
+# 获取 pod 日志（标准输出）
+$ kubectl logs my-pod
+# 获取含 name=myLabel 标签的 Pods 的日志（标准输出）
+$ kubectl logs -l name=myLabel
+# 获取上个容器实例的 pod 日志（标准输出）
+$ kubectl logs my-pod --previous
+# 获取 Pod 容器的日志（标准输出, 多容器场景）
+$ kubectl logs my-pod -c my-container
+# 获取含 name=myLabel 标签的 Pod 容器日志（标准输出, 多容器场景）
+$ kubectl logs -l name=myLabel -c my-container
+# 获取 Pod 中某容器的上个实例的日志（标准输出, 多容器场景）
+$ kubectl logs my-pod -c my-container --previous
+# 流式输出 Pod 的日志（标准输出）
+$ kubectl logs -f my-pod
+# 流式输出 Pod 容器的日志（标准输出, 多容器场景）
+$ kubectl logs -f my-pod -c my-container
+# 流式输出含 name=myLabel 标签的 Pod 的所有日志（标准输出）
+$ kubectl logs -f -l name=myLabel --all-containers
+# 以交互式 Shell 运行 Pod
+$ kubectl run -i --tty busybox --image=busybox:1.28 -- sh
+# 在 “mynamespace” 命名空间中运行单个 nginx Pod
+$ kubectl run nginx --image=nginx -n mynamespace
+# 运行 nginx Pod 并将其规约写入到名为 pod.yaml 的文件
+$ kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+  
+# 挂接到一个运行的容器中
+$ kubectl attach my-pod -i
+# 在本地计算机上侦听端口 5000 并转发到 my-pod 上的端口 6000
+$ kubectl port-forward my-pod 5000:6000
+# 在已有的 Pod 中运行命令（单容器场景）
+$ kubectl exec my-pod -- ls /
+# 使用交互 shell 访问正在运行的 Pod (一个容器场景)
+$ kubectl exec --stdin --tty my-pod -- /bin/sh
+# 在已有的 Pod 中运行命令（多容器场景）
+$ kubectl exec my-pod -c my-container -- ls /
+# 显示给定 Pod 和其中容器的监控数据
+$ kubectl top pod POD_NAME --containers
+# 显示给定 Pod 的指标并且按照 'cpu' 或者 'memory' 排序
+$ kubectl top pod POD_NAME --sort-by=cpu
+# 列出所有容器的资源利用率
+$ kubectl top pod --all-namespaces --containers=true
 ```
 
-> **说明：**
->
-> bash-completion 负责导入 `/etc/bash_completion.d` 目录中的所有补全脚本。
->
-> **重新加载 shell 后，kubectl 自动补全功能才生效**。
-
-### kind
-
-[kind – Quick Start (k8s.io)](https://kind.sigs.k8s.io/docs/user/quick-start/)
-
-### minikube
-
-[minikube start \| minikube (k8s.io)](https://minikube.sigs.k8s.io/docs/start/)
-
-### kubeadm
-
-[安装 kubeadm \| Kubernetes](https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
