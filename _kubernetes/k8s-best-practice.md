@@ -995,4 +995,413 @@ spec:
 2. 你现在以开发人员或者集群用户的角色创建一个 PersistentVolumeClaim， 它将自动绑定到合适的 PersistentVolume。
 3. 你创建一个使用 PersistentVolumeClaim 作为存储的 Pod。
 
-[配置 Pod 以使用 PersistentVolume 作为存储 | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
+#### 在节点上创建 index.html 文件
+
+打开集群中的某个节点的 Shell。本文选择节点 `w2` 。在该节点创建一个 `/mnt/data` 目录：
+
+```shell
+$ mkdir /mnt/data
+```
+
+在 `/mnt/data` 目录中创建一个 index.html 文件：
+
+```shell
+$ sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
+```
+
+测试 `index.html` 文件确实存在：
+
+```shell
+$ cat /mnt/data/index.html
+Hello from Kubernetes storage
+```
+
+#### 创建 PersistentVolume
+
+在本练习中，将创建一个 **hostPath** 类型的 PersistentVolume。 Kubernetes 支持用于在单节点集群上开发和测试的 hostPath 类型的 PersistentVolume。 hostPath 类型的 PersistentVolume 使用节点上的文件或目录来模拟网络附加存储。
+
+在生产集群中，请不要使用 hostPath。 集群管理员会提供网络存储资源，比如 Google Compute Engine 持久盘卷、NFS 共享卷或 Amazon Elastic Block Store 卷。 集群管理员还可以使用 StorageClasses 来设置动态提供存储。
+
+下面是 hostPath PersistentVolume 的配置文件：
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+```
+
+> 配置文件指定卷位于集群节点上的 `/mnt/data` 路径。 配置还指定了卷的容量大小为 10 GB， 访问模式为 `ReadWriteOnce`， 这意味着该卷可以被单个节点以读写方式安装。 配置文件还在 PersistentVolume 中定义了 StorageClass 的名称为 `manual`。它将用于将 PersistentVolumeClaim 的请求绑定到此 PersistentVolume。
+
+创建 PersistentVolume：
+
+```shell
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pv-volume.yaml
+```
+
+查看 PersistentVolume 的信息：
+
+```shell
+$ kubectl get pv task-pv-volume
+NAME             CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+task-pv-volume   10Gi       RWO            Retain           Available           manual                  7s
+```
+
+> 输出结果显示该 PersistentVolume 的`状态（STATUS）` 为 `Available`。 这意味着它还没有被绑定给 PersistentVolumeClaim。
+
+#### 创建 PersistentVolumeClaim
+
+下一步是创建一个 PersistentVolumeClaim。Pod 使用 PersistentVolumeClaim 来请求物理存储。 在本练习中，将创建一个 PersistentVolumeClaim，它请求至少 3 GB 容量的卷， 该卷至少可以为一个节点提供读写访问。
+
+下面是 PersistentVolumeClaim 的配置文件：
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+```
+
+创建 PersistentVolumeClaim：
+
+```shell
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pv-claim.yaml
+```
+
+创建 PersistentVolumeClaim 之后，Kubernetes 控制平面将查找满足申领要求的 PersistentVolume。 如果控制平面找到具有相同 StorageClass 的适当的 PersistentVolume， 则将 PersistentVolumeClaim 绑定到该 PersistentVolume 上。
+
+再次查看 PersistentVolume 信息：
+
+```shell
+$ kubectl get pv task-pv-volume
+NAME             CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS   REASON   AGE
+task-pv-volume   10Gi       RWO            Retain           Bound    default/task-pv-claim   manual                  17m
+```
+
+> 现在输出的 `STATUS` 为 `Bound`。
+
+查看 PersistentVolumeClaim：
+
+```shell
+$ kubectl get pvc task-pv-claim
+NAME            STATUS   VOLUME           CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+task-pv-claim   Bound    task-pv-volume   10Gi       RWO            manual         93s
+```
+
+> 输出结果表明该 PersistentVolumeClaim `task-pv-claim` 绑定了 PersistentVolume `task-pv-volume`。
+
+#### 创建 Pod
+
+下一步是创建一个 Pod， 该 Pod 使用前面创建的 PersistentVolumeClaim 作为存储卷。
+
+下面是 Pod 的 配置文件：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
+
+> 注意 Pod 的配置文件指定了 PersistentVolumeClaim，但没有指定 PersistentVolume。 对 Pod 而言，PersistentVolumeClaim 就是一个存储卷。
+
+创建 Pod：
+
+```shell
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pv-pod.yaml
+```
+
+检查 Pod 中的容器是否运行正常：
+
+```shell
+$ kubectl get pod task-pv-pod
+NAME          READY   STATUS    RESTARTS   AGE
+task-pv-pod   1/1     Running   0          14s
+```
+
+打开一个 Shell 访问 Pod 中的容器，验证 nginx 是否正在从 hostPath 卷提供 `index.html` 文件：
+
+```shell
+$ kubectl exec -it task-pv-pod -- /bin/bash
+root@task-pv-pod:/# cat /usr/share/nginx/html/index.html
+Hello from Kubernetes storage
+```
+
+> 输出结果正是之前写到 hostPath 卷中的 `index.html` 文件中的内容，这说明已经成功地配置了 Pod 使用 PersistentVolumeClaim 的存储。
+
+#### 环境清理
+
+删除 Pod、PersistentVolumeClaim 和 PersistentVolume 对象：
+
+```shell
+$ kubectl delete pod task-pv-pod
+pod "task-pv-pod" deleted
+$ kubectl delete pvc task-pv-claim
+persistentvolumeclaim "task-pv-claim" deleted
+$ kubectl delete pv task-pv-volume
+persistentvolume "task-pv-volume" deleted
+```
+
+在 `w2` 节点的 Shell 上，删除所创建的目录和文件：
+
+```shell
+$ rm -rf /mnt/data/
+```
+
+#### 在两个地方挂载相同的 persistentVolume
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+spec:
+  containers:
+    - name: test
+      image: nginx
+      volumeMounts:
+        # 网站数据挂载
+        - name: config
+          mountPath: /usr/share/nginx/html
+          subPath: html
+        # Nginx 配置挂载
+        - name: config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+  volumes:
+    - name: config
+      persistentVolumeClaim:
+        claimName: test-nfs-claim
+```
+
+可以在 nginx 容器上执行两个卷挂载：
+
+`/usr/share/nginx/html` 用于静态网站，`/etc/nginx/nginx.conf` 作为默认配置。
+
+#### 访问控制
+
+使用组 ID（GID）配置的存储仅允许 Pod 使用相同的 GID 进行写入。 GID 不匹配或缺失将会导致无权访问错误。 为了减少与用户的协调，管理员可以对 PersistentVolume 添加 GID 注解。 这样 GID 就能自动添加到使用 PersistentVolume 的任何 Pod 中。
+
+使用 `pv.beta.kubernetes.io/gid` 注解的方法如下所示：
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv1
+  annotations:
+    pv.beta.kubernetes.io/gid: "1234"
+```
+
+当 Pod 使用带有 GID 注解的 PersistentVolume 时，注解的 GID 会被应用于 Pod 中的所有容器， 应用的方法与 Pod 的安全上下文中指定的 GID 相同。 每个 GID，无论是来自 PersistentVolume 注解还是来自 Pod 规约，都会被应用于每个容器中运行的第一个进程。
+
+> **说明：** 当 Pod 使用 PersistentVolume 时，与 PersistentVolume 关联的 GID 不会在 Pod 资源本身的对象上出现。
+
+### 配置 Pod 使用投射卷作存储
+
+本节介绍怎样通过`projected` 卷将现有的多个卷资源挂载到相同的目录。 当前，`secret`、`configMap`、`downwardAPI` 和 `serviceAccountToken` 卷可以被投射。
+
+#### 为 Pod 配置 projected 卷
+
+本练习中，将从本地文件来创建包含有用户名和密码的 Secret。然后创建运行一个容器的 Pod， 该 Pod 使用`projected` 卷将 Secret 挂载到相同的路径下。
+
+下面是 Pod 的配置文件：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-projected-volume
+spec:
+  containers:
+  - name: test-projected-volume
+    image: busybox:1.28
+    args:
+    - sleep
+    - "86400"
+    volumeMounts:
+    - name: all-in-one
+      mountPath: "/projected-volume"
+      readOnly: true
+  volumes:
+  - name: all-in-one
+    projected:
+      sources:
+      - secret:
+          name: user
+      - secret:
+          name: pass
+```
+
+1. 创建 Secret：
+
+   ```shell
+   # 创建包含用户名和密码的文件
+   $ echo -n "admin" > ./username.txt
+   $ echo -n "1f2d1e2e67df" > ./password.txt
+   
+   # 将上述文件引用到 Secret
+   $ kubectl create secret generic user --from-file=./username.txt
+   secret/user created
+   $ kubectl create secret generic pass --from-file=./password.txt
+   secret/pass created
+   ```
+
+2. 创建 Pod：
+
+   ```shell
+   $ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/projected.yaml
+   ```
+
+3. 确认 Pod 中的容器运行正常，然后监视 Pod 的变化：
+
+   ```shell
+   $ kubectl get --watch pod test-projected-volume
+   NAME                    READY   STATUS              RESTARTS   AGE
+   test-projected-volume   0/1     ContainerCreating   0          5s
+   test-projected-volume   1/1     Running             0          13s
+   ```
+
+4. 在另外一个终端中，打开容器的 shell：
+
+   ```shell
+   $ kubectl exec -it test-projected-volume -- /bin/sh
+   ```
+
+5. 在 shell 中，确认 `projected-volume` 目录是否包含投射源：
+
+   ```shell
+   $ ls /projected-volume/
+   password.txt  username.txt
+   ```
+
+#### 环境清理
+
+删除 Pod 和 Secret:
+
+```shell
+$ kubectl delete pod test-projected-volume
+pod "test-projected-volume" deleted
+$ kubectl delete secret user pass
+secret "user" deleted
+secret "pass" deleted
+
+$ rm -f ./username.txt ./password.txt
+```
+
+### 为 Pod 或容器配置安全上下文
+
+#### 为 Pod 设置安全性上下文
+
+要为 Pod 设置安全性设置，可在 Pod 规约中包含 `securityContext` 字段。`securityContext` 字段值是一个 PodSecurityContext 对象。你为 Pod 所设置的安全性配置会应用到 Pod 中所有 Container 上。 下面是一个 Pod 的配置文件，该 Pod 定义了 `securityContext` 和一个 `emptyDir` 卷：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo
+spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  volumes:
+  - name: sec-ctx-vol
+    emptyDir: {}
+  containers:
+  - name: sec-ctx-demo
+    image: busybox:1.28
+    command: [ "sh", "-c", "sleep 1h" ]
+    volumeMounts:
+    - name: sec-ctx-vol
+      mountPath: /data/demo
+    securityContext:
+      allowPrivilegeEscalation: false
+```
+
+> 在配置文件中，`runAsUser` 字段指定 Pod 中的所有容器内的进程都使用用户 ID 1000 来运行。`runAsGroup` 字段指定所有容器中的进程都以主组 ID 3000 来运行。 如果忽略此字段，则容器的主组 ID 将是 root（0）。 当 `runAsGroup` 被设置时，所有创建的文件也会划归用户 1000 和组 3000。 由于 `fsGroup` 被设置，容器中所有进程也会是附组 ID 2000 的一部分。 卷 `/data/demo` 及在该卷中创建的任何文件的属主都会是组 ID 2000。
+
+创建 Pod：
+
+```shell
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/security-context.yaml
+```
+
+检查 Pod 运行状态：
+
+```shell
+$ kubectl get pod security-context-demo
+NAME                    READY   STATUS    RESTARTS   AGE
+security-context-demo   1/1     Running   0          2s
+```
+
+开启一个 Shell 进入到运行中的容器：
+
+```shell
+$ kubectl exec -it security-context-demo -- sh
+# 列举运行中的进程
+/ $ ps
+PID   USER     TIME  COMMAND
+    1 1000      0:00 sleep 1h
+    7 1000      0:00 sh
+   14 1000      0:00 sh
+   21 1000      0:00 ps
+
+# 进入 /data 目录列举其内容
+/ $ cd /data
+/data $ ls -l
+total 0
+drwxrwsrwx    2 root     2000             6 Aug  4 09:20 demo
+
+# 进入到 /data/demo 目录下创建一个文件
+/data $ cd demo
+/data/demo $ echo hello > testfile
+/data/demo $ ls -l
+total 4
+-rw-r--r--    1 1000     2000             6 Aug  4 09:27 testfile
+
+# 运行 id 命令获取用户和所在组的信息
+/data/demo $ id
+uid=1000 gid=3000 groups=2000
+
+# 退出
+/data/demo $ exit
+```
+
+> 输出显示进程以用户 1000 运行，即 `runAsUser` 所设置的值；输出显示 `/data/demo` 目录的组 ID 为 2000，即 `fsGroup` 的设置值；输出显示新创建文件 `testfile` 的组 ID 为 2000，也就是 `fsGroup` 所设置的值；运行 `id` 命令后，从输出中会看到 `gid` 值为 3000，也就是 `runAsGroup` 字段的值。 如果 `runAsGroup` 被忽略，则 `gid` 会取值 0（root），而进程就能够与 root 用户组所拥有以及要求 root 用户组访问权限的文件交互。
+
+#### 为 Pod 配置卷访问权限和属主变更策略
+
+[为 Pod 或容器配置安全上下文 | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/security-context/#为-pod-配置卷访问权限和属主变更策略)
