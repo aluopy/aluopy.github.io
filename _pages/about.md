@@ -8,3 +8,11 @@ toc: false
 **Have enthusiasm, Put down uneasiness, Love life,**
 **Not reluctant, Have expectations.** 
 
+## Favorites
+
+- [Linux 命令搜索引擎 (aluopy.cn)](https://aluopy.cn/linux-command/)
+- [git - 简明指南 (aluopy.cn)](https://aluopy.cn/git-guide/)
+- [Kubernetes (aluopy.cn)](https://k8s.aluopy.cn/zh-cn/)
+- [Awesome Prometheus alerts | Collection of alerting rules (aluopy.cn)](https://aluopy.cn/awesome-prometheus-alerts/)
+- [Welcome to Ceph — Ceph Documentation (aluopy.cn)](https://ceph.aluopy.cn/zh/v17.2.2/)
+
