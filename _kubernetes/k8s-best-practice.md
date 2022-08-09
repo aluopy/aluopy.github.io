@@ -3030,22 +3030,1032 @@ $ kubectl create configmap <映射名称> <数据源>
 
 可以使用 `kubectl create configmap` 基于同一目录中的多个文件创建 ConfigMap。 当你基于目录来创建 ConfigMap 时，kubectl 识别目录下基本名可以作为合法键名的文件， 并将这些文件打包到新的 ConfigMap 中。普通文件之外的所有目录项都会被忽略 （例如：子目录、符号链接、设备、管道等等）。
 
-例如：
+创建本地目录、下载示例文件：
 
 ```shell
 # 创建本地目录
 $ mkdir -p configure-pod-container/configmap/
 
-# 将示例文件下载到 `configure-pod-container/configmap/` 目录
+# 将示例文件下载到 configure-pod-container/configmap/ 目录
 $ wget https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/game.properties -O configure-pod-container/configmap/game.properties
 $ wget https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
+```
 
-# 创建 configmap
+基于目录创建 ConfigMap
+
+```shell
 $ kubectl create configmap game-config --from-file=configure-pod-container/configmap/
 ```
 
-以上命令将 `configure-pod-container/configmap` 目录下的所有文件，也就是 `game.properties` 和 `ui.properties` 打包到 game-config ConfigMap 中。你可以使用下面的命令显示 ConfigMap 的详细信息：
+> 以上命令将 `configure-pod-container/configmap` 目录下的所有文件，也就是 `game.properties` 和 `ui.properties` 打包到 `game-config` ConfigMap 中。你
+
+查看 ConfigMap 的详细信息：
 
 ```shell
 $ kubectl describe configmaps game-config
+Name:         game-config
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+
+ui.properties:
+----
+color.good=purple
+color.bad=yellow
+allow.textmode=true
+how.nice.to.look=fairlyNice
+
+
+BinaryData
+====
+
+Events:  <none>
 ```
+
+> `configure-pod-container/configmap/` 目录中的 `game.properties` 和 `ui.properties` 文件出现在 ConfigMap 的 `data` 部分。
+
+查看 ConfigMap 的 yaml 输出：
+
+```shell
+$ kubectl get configmaps game-config -o yaml
+apiVersion: v1
+data:
+  game.properties: "enemies=aliens\r\nlives=3\r\nenemies.cheat=true\r\nenemies.cheat.level=noGoodRotten\r\nsecret.code.passphrase=UUDDLRLRBABAS\r\nsecret.code.allowed=true\r\nsecret.code.lives=30\r\n"
+  ui.properties: |
+    color.good=purple
+    color.bad=yellow
+    allow.textmode=true
+    how.nice.to.look=fairlyNice
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-08-09T02:26:11Z"
+  name: game-config
+  namespace: default
+  resourceVersion: "3898175"
+  uid: 0de229a0-ba25-49eb-b65e-7206d5737afb
+```
+
+###### 基于文件创建 ConfigMap
+
+可以使用 `kubectl create configmap` 基于单个文件或多个文件创建 ConfigMap。
+
+**基于普通文件创建 ConfigMap**
+
+**1）**基于单个普通文件创建 ConfigMap
+
+```shell
+$ kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties
+```
+
+将产生以下 ConfigMap:
+
+```shell
+$ kubectl describe configmaps game-config-2
+Name:         game-config-2
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+
+
+BinaryData
+====
+
+Events:  <none>
+```
+
+**2）**基于多个普通文件创建 ConfigMap
+
+可以多次使用 `--from-file` 参数，从多个数据源创建 ConfigMap。
+
+```shell
+$ kubectl create configmap game-config-2 --from-file=configure-pod-container/configmap/game.properties --from-file=configure-pod-container/configmap/ui.properties
+```
+
+查看 `game-config-2` ConfigMap 的详细信息：
+
+```shell
+$ kubectl describe configmaps game-config-2
+Name:         game-config-2
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+
+ui.properties:
+----
+color.good=purple
+color.bad=yellow
+allow.textmode=true
+how.nice.to.look=fairlyNice
+
+
+BinaryData
+====
+
+Events:  <none>
+```
+
+当 `kubectl` 基于非 ASCII 或 UTF-8 的输入创建 ConfigMap 时， 该工具将这些输入放入 ConfigMap 的 `BinaryData` 字段，而不是 `Data` 中。 同一个 ConfigMap 中可同时包含文本数据和二进制数据源。 
+
+**基于 env 文件创建 ConfigMap**
+
+使用 `--from-env-file` 选项从环境文件创建 ConfigMap，例如：
+
+Env 文件包含环境变量列表。其中适用以下语法规则:
+
+- Env 文件中的每一行必须为 VAR=VAL 格式。
+- 以＃开头的行（即注释）将被忽略。
+- 空行将被忽略。
+- 引号不会被特殊处理（即它们将成为 ConfigMap 值的一部分）。
+
+将示例文件下载到 `configure-pod-container/configmap/` 目录：
+
+```shell
+$ wget https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/game-env-file.properties
+$ wget https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/ui-env-file.properties
+```
+
+**1）**基于单个 env 文件创建 ConfigMap
+
+创建 ConfigMap
+
+```shell
+$ kubectl create configmap game-config-env-file \
+       --from-env-file=configure-pod-container/configmap/game-env-file.properties
+```
+
+查看 ConfigMap 信息：
+
+```shell
+$ kubectl get configmap game-config-env-file -o yaml
+apiVersion: v1
+data:
+  allowed: '"true"'
+  enemies: aliens
+  lives: "3"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-08-09T03:02:58Z"
+  name: game-config-env-file
+  namespace: default
+  resourceVersion: "3902999"
+  uid: d900a8a0-27a9-42c2-aac6-af9ce628b5bb
+```
+
+**2）**基于多个 env 文件创建 ConfigMap
+
+从 Kubernetes 1.23 版本开始，`kubectl` 支持多次指定 `--from-env-file` 参数来从多个数据源创建 ConfigMap：
+
+```
+$ kubectl create configmap config-multi-env-files \
+        --from-env-file=configure-pod-container/configmap/game-env-file.properties \
+        --from-env-file=configure-pod-container/configmap/ui-env-file.properties
+```
+
+查看 ConfigMap 信息：
+
+```shell
+$ kubectl get configmap config-multi-env-files -o yaml
+apiVersion: v1
+data:
+  allowed: '"true"'
+  color: purple
+  enemies: aliens
+  how: fairlyNice
+  lives: "3"
+  textmode: "true"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-08-09T03:06:26Z"
+  name: config-multi-env-files
+  namespace: default
+  resourceVersion: "3903446"
+  uid: 1f30ff49-cbdf-41cd-83ac-3ce2d0db7224
+```
+
+###### 自定义从文件创建 ConfigMap 时要使用的键
+
+在使用 `--from-file` 参数时，可以自定义在 ConfigMap 的 `data` 部分出现的键名， 而不是按默认行为使用文件名：
+
+```shell
+$ kubectl create configmap game-config-3 --from-file=<我的键名>=<文件路径>
+```
+
+> `<我的键名>` 是要在 ConfigMap 中使用的键名，`<文件路径>` 是想要键所表示的数据源文件的位置。
+
+例如：
+
+```
+$ kubectl create configmap game-config-3 --from-file=game-special-key=configure-pod-container/configmap/game.properties
+```
+
+查看 ConfigMap 信息：
+
+```shell
+$ kubectl get configmap game-config-3 -o yaml
+apiVersion: v1
+data:
+  game-special-key: "enemies=aliens\r\nlives=3\r\nenemies.cheat=true\r\nenemies.cheat.level=noGoodRotten\r\nsecret.code.passphrase=UUDDLRLRBABAS\r\nsecret.code.allowed=true\r\nsecret.code.lives=30\r\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-08-09T03:18:11Z"
+  name: game-config-3
+  namespace: default
+  resourceVersion: "3904985"
+  uid: 82d226aa-edd6-4b3e-8f38-33d51855bdd6
+```
+
+> 从输出可以看到，此 ConfigMap 的 `data` 部分的键名为我们自定义的 `game-special-key`，而不是之前默认的文件名。
+
+###### 根据字面值创建 ConfigMap
+
+可以将 `kubectl create configmap` 与 `--from-literal` 参数一起使用， 通过命令行定义文字值：
+
+```shell
+$ kubectl create configmap special-config --from-literal=special.how=very --from-literal=special.type=charm
+```
+
+可以传入多个键值对。命令行中提供的每对键值在 ConfigMap 的 `data` 部分中均表示为单独的条目。
+
+```shell
+$ kubectl get configmap special-config -o yaml
+apiVersion: v1
+data:
+  special.how: very
+  special.type: charm
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2022-08-09T03:23:59Z"
+  name: special-config
+  namespace: default
+  resourceVersion: "3905741"
+  uid: 0e9cd295-ed02-4033-b709-0e1bf839a364
+```
+
+###### 使用 yaml 文件创建 ConfigMap
+
+编写 yaml 文件：
+
+```shell
+$ cat <<EOF > special-aluo.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: special-aluo
+  namespace: default
+data:
+  special.how: very
+  special.name: aluo
+  special.age: '18'
+EOF
+```
+
+创建 ConfigMap：
+
+```shell
+$ kubectl apply -f special-aluo.yaml 
+configmap/special-aluo created
+```
+
+查看 ConfigMap：
+
+```shell
+$ kubectl get configmap/special-aluo -o yaml
+apiVersion: v1
+data:
+  special.age: "18"
+  special.how: very
+  special.name: aluo
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"special.age":"18","special.how":"very","special.name":"aluo"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"special-aluo","namespace":"default"}}
+  creationTimestamp: "2022-08-09T05:48:00Z"
+  name: special-aluo
+  namespace: default
+  resourceVersion: "3924594"
+  uid: b5197373-e69a-4852-94fc-09eac6ba5570
+```
+
+##### 基于生成器创建 ConfigMap
+
+自 1.14 开始，`kubectl` 开始支持 `kustomization.yaml`。 你还可以基于生成器（Generators）创建 ConfigMap，然后将其应用于 API 服务器上创建对象。 生成器应在目录内的 `kustomization.yaml` 中指定。
+
+###### 基于文件生成 ConfigMap
+
+例如，要基于 `configure-pod-container/configmap/game.properties` 文件生成一个 ConfigMap：
+
+```shell
+# 创建包含 ConfigMapGenerator 的 kustomization.yaml 文件
+$ cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: game-config-4
+  files:
+  - configure-pod-container/configmap/game.properties
+EOF
+```
+
+应用（Apply）kustomization 目录创建 ConfigMap 对象：
+
+```shell
+$ kubectl apply -k .
+configmap/game-config-4-89fk664tmf created
+```
+
+查看 ConfigMap：
+
+```shell
+$ kubectl describe configmaps/game-config-4-89fk664tmf
+Name:         game-config-4-89fk664tmf
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+game.properties:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+
+
+BinaryData
+====
+
+Events:  <none>
+```
+
+请注意，生成的 ConfigMap 名称具有通过对内容进行散列而附加的后缀， 这样可以确保每次修改内容时都会生成新的 ConfigMap。
+
+[基于 `env` 文件生成 ConfigMap](https://aluopy.cn/kubernetes/kustomize/#基于-env-文件envs)
+
+###### 自定义从文件生成 ConfigMap 时要使用的键
+
+在 ConfigMap 生成器中，可以自定义一个非文件名的键名。 例如，从 `configure-pod-container/configmap/game.properties` 文件生成 ConfigMap， 但使用 `game-special-key` 作为键名：
+
+```shell
+# 创建包含 ConfigMapGenerator 的 kustomization.yaml 文件
+$ cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: game-config-5
+  files:
+  - game-special-key=configure-pod-container/configmap/game.properties
+EOF
+```
+
+应用 Kustomization 目录创建 ConfigMap 对象：
+
+```shell
+$ kubectl apply -k .
+configmap/game-config-5-4bgd4c9hkd created
+```
+
+查看 ConfigMap：
+
+```shell
+$ kubectl describe configmaps/game-config-5-4bgd4c9hkd
+Name:         game-config-5-4bgd4c9hkd
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+game-special-key:
+----
+enemies=aliens
+lives=3
+enemies.cheat=true
+enemies.cheat.level=noGoodRotten
+secret.code.passphrase=UUDDLRLRBABAS
+secret.code.allowed=true
+secret.code.lives=30
+
+
+BinaryData
+====
+
+Events:  <none>
+```
+
+###### 基于字面值生成 ConfigMap
+
+要基于字符串 `special.type=charm` 和 `special.how=very` 生成 ConfigMap， 可以在 `kustomization.yaml` 中配置 ConfigMap 生成器：
+
+```shell
+# 创建带有 ConfigMapGenerator 的 kustomization.yaml 文件
+$ cat <<EOF >./kustomization.yaml
+configMapGenerator:
+- name: special-config-2
+  literals:
+  - special.how=very
+  - special.type=charm
+EOF
+```
+
+应用 Kustomization 目录创建 ConfigMap 对象：
+
+```shell
+$ kubectl apply -k .
+configmap/special-config-2-2b86tk8fhm created
+```
+
+查看 ConfigMap：
+
+```shell
+$ kubectl get configmap/special-config-2-2b86tk8fhm -o yaml
+apiVersion: v1
+data:
+  special.how: very
+  special.type: charm
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"special.how":"very","special.type":"charm"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"special-config-2-2b86tk8fhm","namespace":"default"}}
+  creationTimestamp: "2022-08-09T03:39:01Z"
+  name: special-config-2-2b86tk8fhm
+  namespace: default
+  resourceVersion: "3907710"
+  uid: 54dccab0-6057-4934-81af-f1ac7a3b0c05
+```
+
+#### 使用 ConfigMap 数据定义容器环境变量
+
+##### 使用单个 ConfigMap 中的数据定义容器环境变量
+
+1. 在 ConfigMap 中将环境变量定义为键值对：
+
+   ```shell
+   $ kubectl create configmap special-config --from-literal=special.how=very
+   ```
+
+2. 将 ConfigMap 中定义的 `special.how` 赋值给 Pod 规约中的 `SPECIAL_LEVEL_KEY` 环境变量：
+
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: dapi-test-pod
+   spec:
+     containers:
+       - name: test-container
+         # image: k8s.gcr.io/busybox
+         image: registry.cn-shenzhen.aliyuncs.com/aluopy/busybox
+         command: [ "/bin/sh", "-c", "env" ]
+         env:
+           # 定义环境变量
+           - name: SPECIAL_LEVEL_KEY
+             valueFrom:
+               configMapKeyRef:
+                 # ConfigMap 包含要赋给 SPECIAL_LEVEL_KEY 的值
+                 name: special-config
+                 # 指定与取值相关的键名
+                 key: special.how
+     restartPolicy: Never
+   ```
+
+   创建 Pod：
+
+   ```shell
+   $ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-single-configmap-env-variable.yaml
+   ```
+
+3. 查看容器日志打印的环境变量是否包含 `SPECIAL_LEVEL_KEY=very`
+
+   ```shell
+   $ kubectl logs pod/dapi-test-pod | grep SPECIAL_LEVEL_KEY
+   SPECIAL_LEVEL_KEY=very
+   ```
+
+##### 使用来自多个 ConfigMap 的数据定义容器环境变量
+
+1. 根据 yaml 描述文件创建 ConfigMap，yaml 文件如下：
+
+   ```shell
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: special-config
+     namespace: default
+   data:
+     special.how: very
+   ---
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: env-config
+     namespace: default
+   data:
+     log_level: INFO
+   ```
+
+   创建 ConfigMap：
+
+   ```shell
+   $ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/configmaps.yaml
+   ```
+
+2. 在 Pod 规约中定义环境变量
+
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: dapi-test-pod
+   spec:
+     containers:
+       - name: test-container
+         # image: k8s.gcr.io/busybox
+         image: registry.cn-shenzhen.aliyuncs.com/aluopy/busybox
+         command: [ "/bin/sh", "-c", "env" ]
+         env:
+           - name: SPECIAL_LEVEL_KEY
+             valueFrom:
+               configMapKeyRef:
+                 name: special-config
+                 key: special.how
+           - name: LOG_LEVEL
+             valueFrom:
+               configMapKeyRef:
+                 name: env-config
+                 key: log_level
+     restartPolicy: Never
+   ```
+
+   创建 Pod：
+
+   ```shell
+   $ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-multiple-configmap-env-variable.yaml
+   ```
+
+3. 查看容器日志打印的环境变量是否包含 `SPECIAL_LEVEL_KEY=very` 和 `LOG_LEVEL=INFO`
+
+   ```shell
+   $ kubectl logs dapi-test-pod | grep SPECIAL_LEVEL_KEY
+   SPECIAL_LEVEL_KEY=very
+   
+   $ kubectl logs dapi-test-pod | grep LOG_LEVEL
+   LOG_LEVEL=INFO
+   ```
+
+#### 将 ConfigMap 中的所有键值对配置为容器环境变量
+
+> **说明：**Kubernetes v1.6 和更高版本支持此功能。
+
+- 创建一个包含多个键值对的 ConfigMap
+
+  ```yaml
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: special-config
+    namespace: default
+  data:
+    SPECIAL_LEVEL: very
+    SPECIAL_TYPE: charm
+  ```
+
+  创建 ConfigMap：
+
+  ```
+  $ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/configmap-multikeys.yaml
+  ```
+
+- 使用 `envFrom` 将所有 ConfigMap 的数据定义为容器环境变量，ConfigMap 中的键成为 Pod 中的环境变量名称。
+
+  ```yaml
+  apiVersion: v1
+  kind: Pod
+  metadata:
+    name: dapi-test-pod
+  spec:
+    containers:
+      - name: test-container
+        # image: k8s.gcr.io/busybox
+        image: registry.cn-shenzhen.aliyuncs.com/aluopy/busybox
+        command: [ "/bin/sh", "-c", "env" ]
+        envFrom:
+        - configMapRef:
+            name: special-config
+    restartPolicy: Never
+  ```
+
+  创建 Pod：
+
+  ```shell
+  $ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-configmap-envFrom.yaml
+  ```
+
+- 查看容器日志打印的环境变量是否包含 `SPECIAL_LEVEL=very` 和 `SPECIAL_TYPE=charm`
+
+  ```shell
+  $ kubectl logs dapi-test-pod | grep SPECIAL_LEVEL
+  SPECIAL_LEVEL=very
+  
+  $ kubectl logs dapi-test-pod | grep SPECIAL_TYPE
+  SPECIAL_TYPE=charm
+  ```
+
+#### 在 Pod 命令中使用 ConfigMap 定义的环境变量
+
+可以使用 `$(VAR_NAME)` Kubernetes 替换语法在容器的 `command` 和 `args` 属性中使用 ConfigMap 定义的环境变量。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      # image: k8s.gcr.io/busybox
+      image: registry.cn-shenzhen.aliyuncs.com/aluopy/busybox
+      command: [ "/bin/echo", "$(SPECIAL_LEVEL_KEY) $(SPECIAL_TYPE_KEY)" ]
+      env:
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: special-config
+              key: SPECIAL_LEVEL
+        - name: SPECIAL_TYPE_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: special-config
+              key: SPECIAL_TYPE
+  restartPolicy: Never
+```
+
+创建 Pod：
+
+```shell
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-configmap-env-var-valueFrom.yaml
+```
+
+查看 Pod 日志：
+
+```shell
+$ kubectl logs dapi-test-pod
+very charm
+```
+
+#### 将 ConfigMap 数据添加到一个卷中
+
+##### 使用存储在 ConfigMap 中的数据填充卷
+
+在 Pod 规约的 `volumes` 部分下添加 ConfigMap 名称。 这会将 ConfigMap 数据添加到 `volumeMounts.mountPath` 所指定的目录 （在本例中为 `/etc/config`）。 `command` 部分列出了名称与 ConfigMap 中的键匹配的目录文件。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      # image: k8s.gcr.io/busybox
+      image: registry.cn-shenzhen.aliyuncs.com/aluopy/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/config/" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        # 提供包含要添加到容器中的文件的 ConfigMap 的名称
+        name: special-config
+  restartPolicy: Never
+```
+
+创建 Pod:
+
+```shell
+$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-configmap-volume.yaml
+```
+
+Pod 运行时，命令 `ls /etc/config/` 产生下面的输出：
+
+```
+$ kubectl logs dapi-test-pod 
+SPECIAL_LEVEL
+SPECIAL_TYPE
+```
+
+> **注意：**
+>
+> 如果在 `/etc/config/` 目录中有一些文件，这些文件将被删除。
+
+> **说明：**
+>
+> 文本数据会展现为 UTF-8 字符编码的文件。如果使用其他字符编码， 可以使用 `binaryData`。
+
+##### 将 ConfigMap 数据添加到卷中的特定路径
+
+使用 `path` 字段为特定的 ConfigMap 项目指定预期的文件路径。 在这里，ConfigMap 中键 `SPECIAL_LEVEL` 的内容将挂载在 `config-volume` 卷中 `/etc/config/keys` 文件中。
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      # image: k8s.gcr.io/busybox
+      image: registry.cn-shenzhen.aliyuncs.com/aluopy/busybox
+      command: [ "/bin/sh","-c","cat /etc/config/keys" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: special-config
+        items:
+        - key: SPECIAL_LEVEL
+          path: keys
+  restartPolicy: Never
+```
+
+创建Pod：
+
+```shell
+$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-configmap-volume-specific-key.yaml
+```
+
+当 Pod 运行时，命令 `cat /etc/config/keys` 产生以下输出：
+
+```shell
+$ kubectl logs dapi-test-pod 
+very
+```
+
+> **注意：**
+>
+> 如前，`/etc/config/` 目录中所有先前的文件都将被删除。
+
+##### 映射键到指定路径并设置文件访问权限
+
+可以将指定键名投射到特定目录，也可以逐个文件地设定访问权限。 [Secret 用户指南](https://kubernetes.io/zh-cn/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) 中为这一语法提供了解释。
+
+#### 了解 ConfigMap 和 Pod
+
+ConfigMap API 资源将配置数据存储为键值对。 数据可以在 Pod 中使用，也可以用来提供系统组件（如控制器）的配置。 ConfigMap 与 Secret 类似， 但是提供的是一种处理不含敏感信息的字符串的方法。 用户和系统组件都可以在 ConfigMap 中存储配置数据。
+
+> **说明：**
+>
+> ConfigMap 应该引用属性文件，而不是替换它们。可以将 ConfigMap 理解为类似于 Linux `/etc` 目录及其内容的东西。例如，如果你基于 ConfigMap 创建 Kubernetes 卷，则 ConfigMap 中的每个数据项都由该数据卷中的某个独立的文件表示。
+
+ConfigMap 的 `data` 字段包含配置数据。如下例所示，它可以简单 （如用 `--from-literal` 的单个属性定义）或复杂 （如用 `--from-file` 的配置文件或 JSON blob定义）。
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2016-02-18T19:14:38Z
+  name: example-config
+  namespace: default
+data:
+  # 使用 --from-literal 定义的简单属性
+  example.property.1: hello
+  example.property.2: world
+  # 使用 --from-file 定义复杂属性的例子
+  example.property.file: |-
+    property.1=value-1
+    property.2=value-2
+    property.3=value-3    
+```
+
+##### 限制
+
+- 在 Pod 规约中引用某个 `ConfigMap` 之前，必须先创建这个对象， 或者在 Pod 规约中将 ConfigMap 标记为 `optional`（请参阅[可选的 ConfigMaps](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#optional-configmaps)）。 如果所引用的 ConfigMap 不存在，并且没有将应用标记为 `optional` 则 Pod 将无法启动。 同样，引用 ConfigMap 中不存在的主键也会令 Pod 无法启动，除非你将 Configmap 标记为 `optional`。
+
+- 如果你使用 `envFrom` 来基于 ConfigMap 定义环境变量，那么无效的键将被忽略。 Pod 可以被启动，但无效名称将被记录在事件日志中（`InvalidVariableNames`）。 日志消息列出了每个被跳过的键。例如:
+
+  ```shell
+  kubectl get events
+  ```
+
+  输出与此类似:
+
+  ```
+  LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
+  0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
+  ```
+
+- ConfigMap 位于确定的[名字空间](https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)中。 每个 ConfigMap 只能被同一名字空间中的 Pod 引用.
+
+- 你不能将 ConfigMap 用于[静态 Pod](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/static-pod/)， 因为 Kubernetes 不支持这种用法。
+
+##### 可选的 ConfigMap
+
+可以在 Pod 规约中将对 ConfigMap 的引用标记为 **可选（optional）**。 如果 ConfigMap 不存在，那么它在 Pod 中为其提供数据的配置（例如环境变量、挂载的卷）将为空。 如果 ConfigMap 存在，但引用的键不存在，那么数据也是空的。
+
+例如，以下 Pod 规约将 ConfigMap 中的环境变量标记为可选：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: a-config
+              key: akey
+              optional: true # 将环境变量标记为可选
+  restartPolicy: Never
+```
+
+当你运行这个 Pod 并且名称为 `a-config` 的 ConfigMap 不存在时，输出空值。 当你运行这个 Pod 并且名称为 `a-config` 的 ConfigMap 存在， 但是在 ConfigMap 中没有名称为 `akey` 的键时，控制台输出也会为空。 如果你确实在名为 `a-config` 的 ConfigMap 中为 `akey` 设置了键值， 那么这个 Pod 会打印该值，然后终止。
+
+也可以在 Pod 规约中将 ConfigMap 提供的卷和文件标记为可选。 此时 Kubernetes 将总是为卷创建挂载路径，即使引用的 ConfigMap 或键不存在。 例如，以下 Pod 规约将所引用的 ConfigMap 卷标记为可选：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/config" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: no-config
+        optional: true # 将引用的 ConfigMap 的卷标记为可选
+  restartPolicy: Never
+```
+
+##### 挂载的 ConfigMap 将被自动更新
+
+当某个已被挂载的 ConfigMap 被更新，所投射的内容最终也会被更新。 对于 Pod 已经启动之后所引用的、可选的 ConfigMap 才出现的情形， 这一动态更新现象也是适用的。
+
+kubelet 在每次周期性同步时都会检查已挂载的 ConfigMap 是否是最新的。 但是，它使用其本地的基于 TTL 的缓存来获取 ConfigMap 的当前值。 因此，从更新 ConfigMap 到将新键映射到 Pod 的总延迟可能等于 kubelet 同步周期 （默认 1 分钟） + ConfigMap 在 kubelet 中缓存的 TTL（默认 1 分钟）。
+
+> **说明：**
+>
+> 使用 ConfigMap 作为 [subPath](https://kubernetes.io/zh-cn/docs/concepts/storage/volumes/#using-subpath) 的数据卷将不会收到 ConfigMap 更新。
+
+### 在 Pod 中的容器之间共享进程命名空间
+
+此页面展示如何为 Pod 配置进程命名空间共享。 当启用进程命名空间共享时，容器中的进程对同一 Pod 中的所有其他容器都是可见的。
+
+可以使用此功能来配置协作容器，比如日志处理 sidecar 容器， 或者对那些不包含诸如 shell 等调试实用工具的镜像进行故障排查。
+
+#### 配置 Pod
+
+使用 Pod `.spec` 中的 `shareProcessNamespace` 字段可以启用进程命名空间共享。例如：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  shareProcessNamespace: true
+  containers:
+  - name: nginx
+    image: nginx
+  - name: shell
+    image: busybox:1.28
+    securityContext:
+      capabilities:
+        add:
+        - SYS_PTRACE
+    stdin: true
+    tty: true
+```
+
+1. 在集群中创建 `nginx` Pod：
+
+   ```shell
+   $ kubectl apply -f https://k8s.io/examples/pods/share-process-namespace.yaml
+   ```
+
+2. 获取容器 `shell`，执行 `ps`：
+
+   ```shell
+   $ kubectl attach -it nginx -c shell
+   If you don't see a command prompt, try pressing enter.
+   / # ps ax
+   PID   USER     TIME  COMMAND
+       1 65535     0:00 /pause
+       7 root      0:00 nginx: master process nginx -g daemon off;
+      37 101       0:00 nginx: worker process
+      38 101       0:00 nginx: worker process
+      39 101       0:00 nginx: worker process
+      40 root      0:00 sh
+      46 root      0:00 ps ax
+   ```
+
+可以在其他容器中对进程发出信号。例如，发送 `SIGHUP` 到 `nginx` 以重启工作进程。 此操作需要 `SYS_PTRACE` 权能。
+
+```shell
+# 在 “shell” 容器中运行以下命令
+kill -HUP 7   # 如有必要，更改 “7” 以匹配 nginx 领导进程的 PID
+ps ax
+```
+
+输出类似于：
+
+```
+PID   USER     TIME  COMMAND
+    1 65535     0:00 /pause
+    7 root      0:00 nginx: master process nginx -g daemon off;
+   40 root      0:00 sh
+   47 101       0:00 nginx: worker process
+   48 101       0:00 nginx: worker process
+   49 101       0:00 nginx: worker process
+   50 root      0:00 ps ax
+```
+
+甚至可以使用 `/proc/$pid/root` 链接访问另一个容器的文件系统。
+
+```shell
+# 在 “shell” 容器中运行以下命令
+# 如有必要，更改 “7” 为 Nginx 进程的 PID
+head /proc/7/root/etc/nginx/nginx.conf
+```
+
+输出类似于：
+
+```
+
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+
+```
+
+#### 理解进程命名空间共享
+
+Pod 共享许多资源，因此它们共享进程命名空间是很有意义的。 不过，有些容器可能希望与其他容器隔离，因此了解这些差异很重要：
+
+1. **容器进程不再具有 PID 1。** 在没有 PID 1 的情况下，一些容器拒绝启动 （例如，使用 `systemd` 的容器)，或者拒绝执行 `kill -HUP 1` 之类的命令来通知容器进程。 在具有共享进程命名空间的 Pod 中，`kill -HUP 1` 将通知 Pod 沙箱（在上面的例子中是 `/pause`）。
+
+2. **进程对 Pod 中的其他容器可见。** 这包括 `/proc` 中可见的所有信息， 例如作为参数或环境变量传递的密码。这些仅受常规 Unix 权限的保护。
+
+3. **容器文件系统通过 `/proc/$pid/root` 链接对 Pod 中的其他容器可见。** 这使调试更加容易， 但也意味着文件系统安全性只受文件系统权限的保护。
+
+### 创建静态 Pod
+
+[创建静态 Pod | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/static-pod/)

@@ -125,7 +125,7 @@ metadata:
 
 > **说明：** `.env` 文件中的每个变量在生成的 ConfigMap 中成为一个单独的键。 这与之前的示例不同，前一个示例将一个名为 `.properties` 的文件（及其所有条目）嵌入到同一个键的值中。
 
-##### 基于键值对（`literals`）
+##### 基于字面值（`literals`）
 
 ConfigMap 也可基于字面的键值对来生成。要基于键值对来生成 ConfigMap， 在 `configMapGenerator` 的 `literals` 列表中添加表项。下面是一个例子，展示 如何使用键值对中的数据条目来生成 ConfigMap 对象：
 
@@ -319,7 +319,7 @@ metadata:
 type: Opaque
 ```
 
-##### 基于键值对（`literals`）
+##### 基于字面值（`literals`）
 
 要基于键值对字面值生成 Secret，先要在 `secretGenerator` 的 `literals` 列表中添加表项。下面是基于键值对中数据条目来生成 Secret 的示例：
 
