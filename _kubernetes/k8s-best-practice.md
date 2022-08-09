@@ -43,7 +43,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/memory-request-limit.yaml --namespace=mem-example
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/memory-request-limit.yaml --namespace=mem-example
 ```
 
 查看 Pod 中的容器是否已运行：
@@ -114,7 +114,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/memory-request-limit-2.yaml --namespace=mem-example
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/memory-request-limit-2.yaml --namespace=mem-example
 ```
 
 查看 Pod 相关的详细信息：
@@ -183,7 +183,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/memory-request-limit-3.yaml --namespace=mem-example
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/memory-request-limit-3.yaml --namespace=mem-example
 ```
 
 查看 Pod 状态：
@@ -295,7 +295,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/cpu-request-limit.yaml --namespace=cpu-example
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/cpu-request-limit.yaml --namespace=cpu-example
 ```
 
 查看 Pod 状态：
@@ -384,7 +384,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/cpu-request-limit-2.yaml --namespace=cpu-example
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/cpu-request-limit-2.yaml --namespace=cpu-example
 ```
 
 查看该 Pod 的状态：
@@ -502,7 +502,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/qos-pod.yaml --namespace=qos-example
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/qos-pod.yaml --namespace=qos-example
 ```
 
 查看 Pod 详情：
@@ -566,7 +566,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/qos-pod-2.yaml --namespace=qos-example
+$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/qos-pod-2.yaml --namespace=qos-example
 ```
 
 查看 Pod 详情：
@@ -616,7 +616,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/qos-pod-3.yaml --namespace=qos-example
+$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/qos-pod-3.yaml --namespace=qos-example
 ```
 
 查看 Pod 详情：
@@ -668,7 +668,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/qos-pod-4.yaml --namespace=qos-example
+$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/qos-pod-4.yaml --namespace=qos-example
 ```
 
 查看 Pod 详情：
@@ -791,7 +791,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/extended-resource-pod.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/extended-resource-pod.yaml
 ```
 
 检查 Pod 是否运行正常：
@@ -839,7 +839,7 @@ spec:
 尝试创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/extended-resource-pod-2.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/extended-resource-pod-2.yaml
 ```
 
 查看有关 Pod 的详细信息：
@@ -923,7 +923,7 @@ spec:
 1. 创建 Pod：
 
    ```shell
-   $ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/redis.yaml
+   $ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/redis.yaml
    ```
 
 2. 查看 Pod 运行状态：
@@ -1046,7 +1046,7 @@ spec:
 创建 PersistentVolume：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pv-volume.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pv-volume.yaml
 ```
 
 查看 PersistentVolume 的信息：
@@ -1082,7 +1082,7 @@ spec:
 创建 PersistentVolumeClaim：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pv-claim.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pv-claim.yaml
 ```
 
 创建 PersistentVolumeClaim 之后，Kubernetes 控制平面将查找满足申领要求的 PersistentVolume。 如果控制平面找到具有相同 StorageClass 的适当的 PersistentVolume， 则将 PersistentVolumeClaim 绑定到该 PersistentVolume 上。
@@ -1139,7 +1139,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pv-pod.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pv-pod.yaml
 ```
 
 检查 Pod 中的容器是否运行正常：
@@ -1282,7 +1282,7 @@ spec:
 2. 创建 Pod：
 
    ```shell
-   $ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/projected.yaml
+   $ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/projected.yaml
    ```
 
 3. 确认 Pod 中的容器运行正常，然后监视 Pod 的变化：
@@ -1356,7 +1356,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/security-context.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/security-context.yaml
 ```
 
 检查 Pod 运行状态：
@@ -1458,7 +1458,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/security-context-2.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/security-context-2.yaml
 ```
 
 验证 Pod 中的容器处于运行状态：
@@ -1503,7 +1503,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/security-context-3.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/security-context-3.yaml
 ```
 
 验证 Pod 的容器处于运行状态：
@@ -1555,7 +1555,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/security-context-4.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/security-context-4.yaml
 ```
 
 验证 Pod 的容器处于运行状态：
@@ -1983,7 +1983,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pod-projected-svc-token.yaml
+$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-projected-svc-token.yaml
 ```
 
 查看 Pod 详细信息：
@@ -2268,7 +2268,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/exec-liveness.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/exec-liveness.yaml
 ```
 
 在 30 秒内，查看 Pod 的事件：
@@ -2369,7 +2369,7 @@ kubelet 在容器启动之后 3 秒开始执行健康检测。所以前几次健
 创建一个 Pod 来测试 HTTP 的存活检测：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/http-liveness.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/http-liveness.yaml
 ```
 
 10 秒之后，通过查看 Pod 事件来确认活跃探测器已经失败，并且容器被重新启动了。
@@ -2415,7 +2415,7 @@ spec:
 除了就绪探测，这个配置包括了一个存活探测。 kubelet 会在容器启动 15 秒后进行第一次存活探测。 与就绪探测类似，存活探测会尝试连接 `goproxy` 容器的 8080 端口。 如果存活探测失败，容器会被重新启动。
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/tcp-liveness-readiness.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/tcp-liveness-readiness.yaml
 ```
 
 15 秒之后，通过看 Pod 事件来检测存活探测器：
@@ -2458,7 +2458,7 @@ spec:
 配置问题（例如：错误的 `port` 和 `service`、未实现健康检查协议） 都被认作是探测失败，这一点与 HTTP 和 TCP 探测器类似。
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/grpc-liveness.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/grpc-liveness.yaml
 ```
 
 15 秒钟之后，查看 Pod 事件确认活跃性检查并未失败：
@@ -2714,7 +2714,7 @@ spec:
 1. 使用该配置文件创建一个 Pod，该 Pod 将被调度到你选择的节点上：
 
    ```shell
-   $ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pod-nginx.yaml
+   $ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-nginx.yaml
    ```
 
 2. 验证 Pod 确实运行在你选择的节点上：
@@ -2806,7 +2806,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pod-nginx-required-affinity.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-nginx-required-affinity.yaml
 ```
 
 验证 Pod 是否在所选节点上运行：
@@ -2846,7 +2846,7 @@ spec:
 创建 Pod：
 
 ```shell
-$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/pod-nginx-preferred-affinity.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/pod-nginx-preferred-affinity.yaml
 ```
 
 验证 Pod 是否在所选节点上运行：
@@ -2908,7 +2908,7 @@ Init 容器将共享卷挂载到了 `/work-dir` 目录，应用容器将共享�
 创建 Pod：
 
 ```shell
-$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/pod/init-containers.yaml
+$ kubectl create -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/init-containers.yaml
 ```
 
 检查 nginx 容器运行正常：
@@ -2942,4 +2942,110 @@ root@init-demo:/# curl localhost
 
 ### 为容器的生命周期事件设置处理函数
 
-[为容器的生命周期事件设置处理函数 | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)
+这个页面将演示如何为容器的生命周期事件挂接处理函数。Kubernetes 支持 postStart 和 preStop 事件。 当一个容器启动后，Kubernetes 将立即发送 postStart 事件；在容器被终结之前， Kubernetes 将发送一个 preStop 事件。容器可以为每个事件指定一个处理程序。
+
+#### 定义 postStart 和 preStop 处理函数
+
+在本练习中，将创建一个包含一个容器的 Pod，该容器为 postStart 和 preStop 事件提供对应的处理函数。
+
+下面是对应 Pod 的配置文件：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: lifecycle-demo
+spec:
+  containers:
+  - name: lifecycle-demo-container
+    image: nginx
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+      preStop:
+        exec:
+          command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
+```
+
+在上述配置文件中，可以看到 postStart 命令在容器的 `/usr/share` 目录下写入文件 `message`。 命令 preStop 负责优雅地终止 nginx 服务。当因为失效而导致容器终止时，这一处理方式很有用。
+
+创建 Pod：
+
+```shell
+$ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/lifecycle-events.yaml
+```
+
+验证 Pod 中的容器已经运行：
+
+```shell
+$ kubectl get pod lifecycle-demo 
+NAME             READY   STATUS    RESTARTS   AGE
+lifecycle-demo   1/1     Running   0          10s
+```
+
+使用 shell 连接到 Pod 里的容器，验证 `postStart` 处理函数创建了 `message` 文件：
+
+```shell
+$ kubectl exec -it lifecycle-demo -- /bin/bash
+root@lifecycle-demo:/# cat /usr/share/message
+Hello from the postStart handler
+```
+
+> 命令行输出的是 `postStart` 处理函数所写入的文本。
+
+#### 讨论
+
+Kubernetes 在容器创建后立即发送 postStart 事件。 然而，postStart 处理函数的调用不保证早于容器的入口点（entrypoint） 的执行。postStart 处理函数与容器的代码是异步执行的，但 Kubernetes 的容器管理逻辑会一直阻塞等待 postStart 处理函数执行完毕。 只有 postStart 处理函数执行完毕，容器的状态才会变成 RUNNING。
+
+Kubernetes 在容器结束前立即发送 preStop 事件。除非 Pod 宽限期限超时，Kubernetes 的容器管理逻辑 会一直阻塞等待 preStop 处理函数执行完毕。更多的相关细节，可以参阅 [Pods 的结束](https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+
+> **说明：** Kubernetes 只有在 Pod *结束（Terminated）* 的时候才会发送 preStop 事件， 这意味着在 Pod *完成（Completed）* 时 preStop 的事件处理逻辑不会被触发。这个限制在 [issue #55087](https://github.com/kubernetes/kubernetes/issues/55807) 中被追踪。
+
+### 配置 Pod 使用 ConfigMap
+
+很多应用在其初始化或运行期间要依赖一些配置信息。大多数时候， 存在要调整配置参数所设置的数值的需求。 ConfigMap 是 Kubernetes 用来向应用 Pod 中注入配置数据的方法。
+
+ConfigMap 允许你将配置文件与镜像文件分离，以使容器化的应用程序具有可移植性。 本页提供了一系列使用示例，这些示例演示了如何创建 ConfigMap 以及配置 Pod 使用存储在 ConfigMap 中的数据。
+
+#### 创建 ConfigMap
+
+可以使用 `kubectl create configmap` 或者在 `kustomization.yaml` 中的 ConfigMap 生成器来创建 ConfigMap。注意，`kubectl` 从 1.14 版本开始支持 `kustomization.yaml`。
+
+##### 使用 kubectl create configmap 创建 ConfigMap
+
+你可以使用 `kubectl create configmap` 命令基于目录、 文件或者字面值来创建 ConfigMap：
+
+```shell
+$ kubectl create configmap <映射名称> <数据源>
+```
+
+其中，`<映射名称>` 是为 ConfigMap 指定的名称，`<数据源>` 是要从中提取数据的目录、 文件或者字面值。ConfigMap 对象的名称必须是合法的 [DNS 子域名](https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+在基于文件来创建 ConfigMap 时，`<数据源>` 中的键名默认取自文件的基本名， 而对应的值则默认为文件的内容。
+
+可以使用 [`kubectl describe`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/#describe) 或者 [`kubectl get`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/#get) 获取有关 ConfigMap 的信息。
+
+###### 基于目录创建 ConfigMap
+
+可以使用 `kubectl create configmap` 基于同一目录中的多个文件创建 ConfigMap。 当你基于目录来创建 ConfigMap 时，kubectl 识别目录下基本名可以作为合法键名的文件， 并将这些文件打包到新的 ConfigMap 中。普通文件之外的所有目录项都会被忽略 （例如：子目录、符号链接、设备、管道等等）。
+
+例如：
+
+```shell
+# 创建本地目录
+$ mkdir -p configure-pod-container/configmap/
+
+# 将示例文件下载到 `configure-pod-container/configmap/` 目录
+$ wget https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/game.properties -O configure-pod-container/configmap/game.properties
+$ wget https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
+
+# 创建 configmap
+$ kubectl create configmap game-config --from-file=configure-pod-container/configmap/
+```
+
+以上命令将 `configure-pod-container/configmap` 目录下的所有文件，也就是 `game.properties` 和 `ui.properties` 打包到 game-config ConfigMap 中。你可以使用下面的命令显示 ConfigMap 的详细信息：
+
+```shell
+$ kubectl describe configmaps game-config
+```
