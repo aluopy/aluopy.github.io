@@ -4058,4 +4058,84 @@ Pod 共享许多资源，因此它们共享进程命名空间是很有意义的�
 
 ### 创建静态 Pod
 
-[创建静态 Pod | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/static-pod/)
+**静态 Pod** 在指定的节点上由 kubelet 守护进程直接管理，不需要 API 服务器 监管。 与由控制面管理的 Pod（例如，Deployment） 不同；kubelet 监视每个静态 Pod（在它失败之后重新启动）。
+
+静态 Pod 始终都会绑定到特定节点的 Kubelet 上。
+
+kubelet 会尝试通过 Kubernetes API 服务器为每个静态 Pod 自动创建一个[镜像 Pod](https://kubernetes.io/zh-cn/docs/reference/glossary/?all=true#term-mirror-pod)。 这意味着节点上运行的静态 Pod 对 API 服务来说是可见的，但是不能通过 API 服务器来控制。 Pod 名称将以带有前导连字符（`-`）的节点主机名作为后缀。
+
+> **说明：**
+>
+> 如果你在运行一个 Kubernetes 集群，并且在每个节点上都运行一个静态 Pod， 就可能需要考虑使用 [DaemonSet](https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/daemonset/) 替代这种方式。
+
+> **说明：**
+>
+> 静态 Pod 的 `spec` 不能引用其他 API 对象 （如：ServiceAccount、 ConfigMap、 Secret 等）。
+
+#### 创建静态 Pod
+
+可以通过**文件系统上的配置文件**或者 **Web 网络上的配置文件**来配置静态 Pod。
+
+##### 文件系统上的静态 Pod 声明文件
+
+声明文件是标准的 Pod 定义文件，以 JSON 或者 YAML 格式存储在指定目录。路径设置在 [Kubelet 配置文件](https://kubernetes.io/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 的 `staticPodPath: <目录>` 字段，kubelet 会定期的扫描这个文件夹下的 YAML/JSON 文件来创建/删除静态 Pod。 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
+
+例如：下面是如何以静态 Pod 的方式启动一个简单 web 服务：
+
+1. 选择一个要运行静态 Pod 的节点。在这个例子中选择 `w2`
+
+   ```shell
+   $ ssh w2
+   ```
+
+2. 选择一个目录，比如在 `/etc/kubernetes/manifests` 目录来保存 Web 服务 Pod 的定义文件，例如 `/etc/kubernetes/manifests/static-web.yaml`
+
+   ```shell
+   # 在 kubelet 运行的节点上执行以下命令
+   $ mkdir -p /etc/kubernetes/manifests/
+   $ cat <<EOF >/etc/kubernetes/manifests/static-web.yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: static-web
+     labels:
+       role: myrole
+   spec:
+     containers:
+       - name: web
+         image: nginx
+         ports:
+           - name: web
+             containerPort: 80
+             protocol: TCP
+   EOF
+   ```
+
+   > 本文环境中 kubelete 的 `staticPodPath` 字段的值为 `/etc/kubernetes/manifests`
+
+##### Web 网上的静态 Pod 声明文件
+
+Kubelet 根据 `--manifest-url=<URL>` 参数的配置定期的下载指定文件，并且转换成 JSON/YAML 格式的 Pod 定义文件。 与[文件系统上的清单文件](#文件系统上的静态 Pod 声明文件)使用方式类似，kubelet 调度获取清单文件。 如果静态 Pod 的清单文件有改变，kubelet 会应用这些改变。
+
+按照下面的方式来创建：
+
+1. 创建一个 YAML 文件，并保存在 web 服务上，为 kubelet 生成一个 URL。
+
+   ```yaml
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: static-web
+     labels:
+       role: myrole
+   spec:
+     containers:
+       - name: web
+         image: nginx
+         ports:
+           - name: web
+             containerPort: 80
+             protocol: TCP
+   ```
+
+   
