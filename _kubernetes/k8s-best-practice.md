@@ -3982,7 +3982,7 @@ spec:
 1. 在集群中创建 `nginx` Pod：
 
    ```shell
-   $ kubectl apply -f https://k8s.io/examples/pods/share-process-namespace.yaml
+   $ kubectl apply -f https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/share-process-namespace.yaml
    ```
 
 2. 获取容器 `shell`，执行 `ps`：
@@ -4138,4 +4138,212 @@ Kubelet 根据 `--manifest-url=<URL>` 参数的配置定期的下载指定文件
              protocol: TCP
    ```
 
+   > 本文 YAML 文件的 URL 为：https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/static-web-url.yaml
+
+2. 通过在选择的节点上使用 `--manifest-url=<manifest-url>` 配置运行 kubelet（本例选择 `w1` 节点）。添加下面这行到 `/etc/sysconfig/kubelet` （yum 安装方式的配置路径） ：
+
+   ```
+   KUBELET_EXTRA_ARGS="--manifest-url=https://raw.githubusercontent.com/aluopy/aluopy.github.io/master/resource/k8s/pod/static-web-url.yaml"
+   ```
+
+3. 重启 kubelet：
+
+   ```shell
+   $ systemctl restart kubelet
+   ```
+
+#### 观察静态 Pod 的行为
+
+当 kubelet 启动时，会自动启动所有定义的静态 Pod。 当定义了一个静态 Pod 并重新启动 kubelet 时，新的静态 Pod 就应该已经在运行了。
+
+可以在节点上运行下面的命令来查看正在运行的容器（包括静态 Pod）：
+
+```shell
+# 在 kubelet 运行的节点上执行以下命令
+# containerd
+$ crictl ps
+
+# docker
+$ docker ps
+```
+
+> **说明：**
+>
+> `crictl` 会输出镜像 URI 和 SHA-256 校验和。`NAME` 看起来像： `docker.io/library/nginx@sha256:0d17b565c37bcbd895e9d92315a05c1c3c9a29f762b011a10c54a66cd53c9b31`。
+
+可以在 API 服务上看到镜像 Pod：
+
+```
+$ kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+static-web-w1   1/1     Running   0          10m
+static-web-w2   1/1     Running   0          174m
+```
+
+> **说明：**
+>
+> 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。 参阅 [Pod 安全性准入](https://kubernetes.io/zh-cn/docs/concepts/security/pod-security-admission/)和 [Pod 安全策略](https://kubernetes.io/zh-cn/docs/concepts/security/pod-security-policy/)。
+
+静态 Pod 上的标签被传播到镜像 Pod。 可以通过选择算符使用这些标签。
+
+如果用 `kubectl` 从 API 服务上删除镜像 Pod，kubelet **不会**移除静态 Pod：
+
+```shell
+$ kubectl delete pod static-web-w1
+pod "static-web-w1" deleted
+```
+
+可以看到 Pod 还在运行：
+
+```shell
+$ kubectl get pods
+NAME            READY   STATUS    RESTARTS   AGE
+static-web-w1   1/1     Running   0          24s
+static-web-w2   1/1     Running   0          176m
+```
+
+回到 kubelet 运行所在的节点上，可以手动停止容器。 可以看到过了一段时间后 kubelet 会发现容器停止了并且会自动重启 Pod：
+
+```shell
+# 在 kubelet 运行的节点上执行以下命令
+# 把 ID 换为你的容器的 ID
+$ docker stop 6fa2bc8eafc0
+6fa2bc8eafc0
+$ sleep 20
+$ docker ps
+CONTAINER ID   IMAGE                                                COMMAND                  CREATED          STATUS          PORTS     NAMES
+8155a2a7d41f   nginx                                                "/docker-entrypoint.…"   4 seconds ago    Up 4 seconds              k8s_web_static-web-w1_default_fb2431278ecd6c8c61e4af418afd91f4_1
+```
+
+#### 动态增加和删除静态 Pod
+
+运行中的 kubelet 会定期扫描配置的目录（比如例子中的 `/etc/kubernetes/manifests` 目录）中的变化， 并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
+
+```shell
+# 这里假定用主机文件系统上的静态 Pod 配置文件
+# 在 kubelet 运行的节点上执行以下命令（删除 Pod）
+$ mv /etc/kubernetes/manifests/static-web.yaml /tmp
+$ sleep 20
+$ docker ps
+# 可以看到没有 nginx 容器在运行
+
+# 添加 Pod
+$ mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
+$ sleep 20
+$ docker ps
+# 可以看到静态 Pod 已经在运行了
+```
+
+### 将 Docker Compose 文件转换为 Kubernetes 资源
+
+Kompose 是什么？它是个转换工具，可将 compose（即 Docker Compose）所组装的所有内容转换成容器编排器（Kubernetes 或 OpenShift）可识别的形式。
+
+更多信息请参考 Kompose 官网 [http://kompose.io](http://kompose.io/)。
+
+#### 安装 Kompose
+
+我们有很多种方式安装 Kompose。首选方式是从最新的 GitHub 发布页面下载二进制文件。
+
+Kompose 通过 GitHub 发布，发布周期为三星期。 可以在 [GitHub 发布页面](https://github.com/kubernetes/kompose/releases) 上看到所有当前版本。
+
+```shell
+# Linux
+$ curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-linux-amd64 -o kompose
+# macOS
+$ curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-darwin-amd64 -o kompose
+# Windows
+$ curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-windows-amd64.exe -o kompose.exe
+
+$ chmod +x kompose
+$ sudo mv ./kompose /usr/local/bin/kompose
+
+$ kompose version
+1.26.0 (40646f47)
+```
+
+#### 使用 Kompose
+
+再需几步，我们就把你从 Docker Compose 带到 Kubernetes。 你只需要一个现有的 `docker-compose.yml` 文件。
+
+1. 进入 `docker-compose.yml` 文件所在的目录。如果没有，请使用下面这个进行测试。
+
+   ```yaml
+   version: "2"
    
+   services:
+   
+     redis-master:
+       image: registry.cn-shenzhen.aliyuncs.com/aluopy/redis:e2e
+       ports:
+         - "6379"
+   
+     redis-slave:
+       image: registry.cn-shenzhen.aliyuncs.com/aluopy/gb-redisslave:v3
+       ports:
+         - "6379"
+       environment:
+         - GET_HOSTS_FROM=dns
+   
+     frontend:
+       image: registry.cn-shenzhen.aliyuncs.com/aluopy/gb-frontend:v4
+       ports:
+         - "80:80"
+       environment:
+         - GET_HOSTS_FROM=dns
+       labels:
+         kompose.service.type: LoadBalancer
+   ```
+
+2. 要将 `docker-compose.yml` 转换为 `kubectl` 可用的文件，请运行 `kompose convert` 命令进行转换，然后运行 `kubectl apply -f <output file>` 进行创建。
+
+   ```shell
+   $ kompose convert
+   INFO Kubernetes file "frontend-tcp-service.yaml" created 
+   INFO Kubernetes file "redis-master-service.yaml" created 
+   INFO Kubernetes file "redis-slave-service.yaml" created 
+   INFO Kubernetes file "frontend-deployment.yaml" created 
+   INFO Kubernetes file "redis-master-deployment.yaml" created 
+   INFO Kubernetes file "redis-slave-deployment.yaml" created
+   
+   $ kubectl apply -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+   service/frontend-tcp created
+   service/redis-master created
+   service/redis-slave created
+   deployment.apps/frontend created
+   deployment.apps/redis-master created
+   deployment.apps/redis-slave created
+   ```
+
+3. 访问应用
+
+   ```shell
+   $ kubectl describe svc frontend-tcp
+   Name:                     frontend-tcp
+   Namespace:                default
+   Labels:                   io.kompose.service=frontend-tcp
+   Annotations:              kompose.cmd: kompose convert
+                             kompose.service.type: LoadBalancer
+                             kompose.version: 1.26.0 (40646f47)
+   Selector:                 io.kompose.service=frontend
+   Type:                     LoadBalancer
+   IP Family Policy:         SingleStack
+   IP Families:              IPv4
+   IP:                       10.96.150.55
+   IPs:                      10.96.150.55
+   Port:                     80  80/TCP
+   TargetPort:               80/TCP
+   NodePort:                 80  30907/TCP
+   Endpoints:                10.0.2.246:80
+   Session Affinity:         None
+   External Traffic Policy:  Cluster
+   Events:                   <none>
+   
+   $ curl http://10.96.150.55
+   <html ng-app="redis">
+     <head>
+       <title>Guestbook</title>
+   ...
+   ```
+
+[将 Docker Compose 文件转换为 Kubernetes 资源 | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/configure-pod-container/translate-compose-kubernetes/#user-guide)
+

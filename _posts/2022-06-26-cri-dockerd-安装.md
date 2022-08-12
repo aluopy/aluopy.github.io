@@ -32,7 +32,7 @@ $ yum install cri-dockerd-0.2.3-3.el7.x86_64.rpm -y
 修改启动文件
 
 ```shell
-$ sed -i 's,^ExecStart.*,&cni --pod-infra-container-image=registry.aliyuncs.com/google_containers/pause:3.7,' /usr/lib/systemd/system/cri-docker.service
+$ sed -i 's,^ExecStart.*,& --network-plugin=cni --pod-infra-container-image=registry.aliyuncs.com/google_containers/pause:3.7,' /usr/lib/systemd/system/cri-docker.service
 ```
 
 启动 cri-dockerd
