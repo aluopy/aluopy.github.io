@@ -13,13 +13,7 @@ tags:
   - harbor
 ---
 
-
-
-
-
-
-
-本文通过 helm 在 kubernetes 中快速安装 harbor
+本文使用 helm 在 kubernetes 中快速安装 harbor
 
 官方文档：[Deploying Harbor with High Availability via Helm](https://goharbor.io/docs/2.6.0/install-config/harbor-ha-helm/)
 
