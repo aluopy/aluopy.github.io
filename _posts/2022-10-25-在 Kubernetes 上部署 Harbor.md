@@ -133,7 +133,7 @@ $ helm install harbor -n harbor -f my-values.yaml ./harbor
 
 等待几分钟后查看相关组件运行状态。
 
-查看 helm 发布版本信息
+查看 helm 发布的版本信息
 
 ```shell
 $ helm list -n harbor
