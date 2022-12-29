@@ -5,7 +5,9 @@ permalink: /kubernetes/deploy-jekyll-on-kubernetes/
 toc: true
 #toc_label: ""
 #toc_icon: "cog"
-categories: kubernetes
+categories: 
+  - kubernetes
+  - jekyll
 tags:
   - jekyll
 ---
@@ -214,3 +216,7 @@ TCP 检查的一个缺点是它不一定意味着你的应用程序正在运行�
    ```shell
    kubectl apply -f deployment.yaml
    ```
+
+## 参考
+
+原文链接：[How to Deploy Jekyll on Kubernetes - CloudyTuts](https://www.cloudytuts.com/guides/kubernetes/how-to-deploy-jekyll-on-kubernetes/)
