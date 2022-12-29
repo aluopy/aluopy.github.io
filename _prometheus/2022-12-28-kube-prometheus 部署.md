@@ -19,7 +19,7 @@ tags:
   - blackbox-exporter
 ---
 
-## 简介
+## 概览
 
 ### Prometheus
 
@@ -85,7 +85,9 @@ $ cd kube-prometheus/
 
 一旦你的机器上有了这些文件，就可以进入项目的根目录。
 
-## 清单整理
+## 初始化设置
+
+### 清单整理
 
 这个项目的 Kubernetes 清单文件都放在 `manifests` 目录下，而且比较繁多，为了方便后续区分管理，将这些文件进行整理分类。
 
@@ -225,7 +227,7 @@ $ tree ../manifests/
 11 directories, 94 files
 ```
 
-## 镜像修改
+### 镜像修改
 
 由于这个堆栈的一些镜像来自 `registry.k8s.io` 镜像仓库，国内无法访问，所以需要修改为国内的镜像。
 
@@ -237,11 +239,11 @@ $ sed -i "s,image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.7.0,
 $ sed -i "s,image: registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.10.0,image: registry.cn-shenzhen.aliyuncs.com/aluopyy/prometheus-adapter:v0.10.0," prometheus-adapter/prometheusAdapter-deployment.yaml
 ```
 
-## 数据持久化配置
+### 数据持久化配置
 
 kube-prometheus 默认是通过 `emptyDir` 进行挂载的，`emptyDir` 挂载的数据的生命周期和 Pod 生命周期一致，如果 Pod 挂掉了，那么数据也就丢失了，这也就是为什么我们重建 Pod 后之前的数据就没有了的原因，所以这里修改它的持久化配置。
 
-### Prometheus 持久化
+#### Prometheus 持久化
 
 prometheus 是使用的 StatefulSet 方式部署的，所以直接将 StorageClass 配置到 yaml 文件里面，在 `prometheus/prometheus-prometheus.yaml` 文件最下面添加持久化配置：
 
@@ -304,7 +306,7 @@ spec:
             storage: 10Gi
 ```
 
-### Grafana 持久化
+#### Grafana 持久化
 
 由于 Grafana 是使用的 Deployment 方式部署的，所以提前为其创建一个 PVC，新建 `grafana/grafana-pvc.yaml` 文件内容如下：
 
@@ -562,4 +564,16 @@ spec:
   - Ingress
 status: {}
 ```
+
+## Reference documentation
+
+- [Prometheus - Monitoring system & time series database](https://prometheus.io/)
+- [prometheus-operator/prometheus-operator: Prometheus Operator creates/configures/manages Prometheus clusters atop Kubernetes (github.com)](https://github.com/prometheus-operator/prometheus-operator)
+- [prometheus-operator/kube-prometheus: Use Prometheus to monitor Kubernetes and applications running on Kubernetes (github.com)](https://github.com/prometheus-operator/kube-prometheus)
+- [Prometheus Operator - Running Prometheus on Kubernetes (prometheus-operator.dev)](https://prometheus-operator.dev/)
+- [kubernetes-sigs/prometheus-adapter: An implementation of the custom.metrics.k8s.io API using Prometheus (github.com)](https://github.com/kubernetes-sigs/prometheus-adapter)
+- [blog-example/Kubernetes/k8s-kube-promethues at master · zuozewei/blog-example (github.com)](https://github.com/zuozewei/blog-example/tree/master/Kubernetes/k8s-kube-promethues)
+- [《 深入剖析 Kubernetes 》](https://time.geekbang.org/column/article/72281)
+- [Update network policy to get metrics from adapter by gabrielb77 · Pull Request #1870 · prometheus-operator/kube-prometheus (github.com)](https://github.com/prometheus-operator/kube-prometheus/pull/1870)
+- [prometheus-adapter: failed querying node metrics · Issue #1764 · prometheus-operator/kube-prometheus (github.com)](https://github.com/prometheus-operator/kube-prometheus/issues/1764)
 
