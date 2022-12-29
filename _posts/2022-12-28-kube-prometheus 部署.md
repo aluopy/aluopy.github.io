@@ -403,7 +403,7 @@ prometheus-operator-5cd6dbfd4f-r9bwf   2/2     Running   0          20h
 
 ## 使用 Ingress 暴露 Prometheus 相关服务
 
-默认情况下，限制访问 prometheus 组件的 NetworkPolicies 被添加，修改相应的 NetworkPolicies 使 Ingress 能访问。
+默认情况下，限制访问 prometheus 组件的 NetworkPolicies 被添加，修改相应的 NetworkPolicies 使 prometheus 相关组件能够被访问。
 
 在 `prometheus/prometheus-networkPolicy.yaml`, `alertmanager/alertmanager-networkPolicy.yaml`, `grafana/grafana-networkPolicy.yaml` yaml 文件中的相应位置添加如下内容：
 
