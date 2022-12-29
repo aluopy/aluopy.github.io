@@ -439,6 +439,16 @@ metadata:
     nginx.ingress.kubernetes.io/affinity: cookie
 spec:
   ingressClassName: nginx
+  #tls:
+  #- hosts:
+  #    - prometheus.mydomain.com
+  #  secretName: mydomain-tls-secret
+  #- hosts:
+  #    - alertmanager.mydomain.com
+  #  secretName: mydomain-tls-secret
+  #- hosts:
+  #    - grafana.mydomain.com
+  #  secretName: mydomain-tls-secret
   rules:
   - host: prometheus.mydomain.com
     http:
@@ -449,7 +459,7 @@ spec:
           service:
             name: prometheus-k8s
             port:
-              number: 9090
+              name: web
   - host: alertmanager.mydomain.com
     http:
       paths:
@@ -459,7 +469,7 @@ spec:
           service:
             name: alertmanager-main
             port:
-              number: 9093
+              name: web
   - host: grafana.mydomain.com
     http:
       paths:
@@ -469,7 +479,7 @@ spec:
           service:
             name: grafana
             port:
-              number: 3000
+              name: http
 ```
 
 应用 yaml 文件，创建 ingress 资源：
