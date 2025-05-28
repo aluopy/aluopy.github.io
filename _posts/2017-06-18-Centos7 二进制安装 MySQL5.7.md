@@ -4,6 +4,7 @@ toc: true
 toc_label: "Centos7 二进制安装 MySQL5.7"
 toc_icon: "cog"
 categories: mysql
+permalink: /mysql/centos7-binary-mysql57-install
 tags:
   - mysql
   - centos
